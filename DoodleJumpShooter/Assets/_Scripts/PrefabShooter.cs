@@ -4,7 +4,6 @@ using UnityEngine;
 public class PrefabShooter : Weapon
 {
     [SerializeField] GameObject bulletPrefab;
-    
     [SerializeField] float intervallToShoot;
     [SerializeField] int shootCount;
 

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class floatingPlatform : Platform
+public class Floating : MonoBehaviour
 {
     [SerializeField] float speed;
 

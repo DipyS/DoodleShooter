@@ -1,12 +1,16 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    [SerializeField] ParticleSystem damageParticles;
+    [SerializeField] List<Rigidbody2D> slisedSides;
+    [SerializeField] float MaxForcePart = 4;
+    [SerializeField] float MaxRotationForcePart = 10;
+    [SerializeField,Space(5)] ParticleSystem damageParticles;
     [SerializeField] ParticleSystem killParticles;
     [SerializeField] GameObject floatingText;
-    [SerializeField] protected int health = 1;
+    [SerializeField,Space(5)] protected int health = 1;
     [SerializeField] protected int armor;
     public virtual void TakeDamage(int damage) {
         Instantiate(damageParticles, transform.position,Quaternion.identity);
@@ -24,6 +28,15 @@ public class Entity : MonoBehaviour
     }
 
     public virtual void Kill() {
+        foreach (var p in slisedSides)
+        {
+            Rigidbody2D newPart = Instantiate(p, transform.position,Quaternion.identity);
+            newPart.velocity = new Vector2(Random.Range(-MaxForcePart,MaxForcePart),MaxForcePart);
+            newPart.rotation = Random.Range(-MaxRotationForcePart,MaxRotationForcePart);
+            Destroy(newPart.gameObject,4);
+        }
+        CameraShake.singleton.Shake(0.3f,4);
+
         Instantiate(killParticles, transform.position,Quaternion.identity);
         Destroy(gameObject);
     }

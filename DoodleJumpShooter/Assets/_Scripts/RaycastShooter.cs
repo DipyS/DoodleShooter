@@ -10,6 +10,8 @@ public class RaycastShooter : Weapon
     [SerializeField] float shootDistance;
     [SerializeField] LayerMask ignoreRaycast;
     [SerializeField] int damage = 15;
+    [SerializeField,Space(5)] bool VisualizeBullet;
+    [SerializeField] LineRenderer bullet;
     protected override void Shoot()
     {
         StartCoroutine(Shooting());
@@ -32,6 +34,15 @@ public class RaycastShooter : Weapon
                 }
             }
             
+            if (VisualizeBullet) {
+                var newBullet = Instantiate(bullet,transform.position,Quaternion.identity);
+                newBullet.SetPosition(0,FirePoint.position);
+                if (hit.point == Vector2.zero) {
+                    Vector2 endPoint = FirePoint.position + FirePoint.right * 90; 
+                    newBullet.SetPosition(1,endPoint);
+                } 
+                else newBullet.SetPosition(1,hit.point);
+            }
             FirePoint.rotation = firePointDefauldRotation;
             if (intervallToShoot != 0) yield return new WaitForSeconds(intervallToShoot);
         }

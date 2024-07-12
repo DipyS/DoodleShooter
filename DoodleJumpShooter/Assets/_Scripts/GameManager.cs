@@ -30,10 +30,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject LosePanel;
     [SerializeField] TextMeshProUGUI LosePanelScoresText;
     [SerializeField] TextMeshProUGUI scoresTMP;
+    [SerializeField] int scoresPerY = 21;
     public int scores {get; private set;}
     public int highScoresGame {get; private set;}
     public int highScoresAll {get; private set;}
     bool canLose = true;
+    
     void Awake()
     {
         Instance = this;
@@ -76,7 +78,7 @@ public class GameManager : MonoBehaviour
         canLose = true;
     }
     void UpdateScores() {
-        scores = (int)player.transform.position.y * 5;
+        scores = (int)player.transform.position.y * scoresPerY;
         if (scores > highScoresGame) highScoresGame = scores;
         scoresTMP.text = highScoresGame.ToString();
     }    
