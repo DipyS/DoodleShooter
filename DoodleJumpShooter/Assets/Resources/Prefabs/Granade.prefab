@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3206706789410967295}
   - component: {fileID: 4580382670941915204}
   - component: {fileID: 6694524019616582709}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4843,7 +4843,7 @@ GameObject:
   - component: {fileID: 6055798610808256857}
   - component: {fileID: 664150491000638101}
   - component: {fileID: 5571563509516738300}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Granade
   m_TagString: Untagged
   m_Icon: {fileID: 0}

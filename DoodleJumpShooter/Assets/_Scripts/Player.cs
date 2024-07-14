@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Player : MonoBehaviour
     [SerializeField] float rocketDuration = 3.5f;    
     [SerializeField] GameObject virtualCamera;
     [SerializeField] ParticleSystem jumpParticles;
+    [SerializeField] Image fill;
+    [SerializeField] Image fillChildren;
     [HideInInspector] public Rigidbody2D rb;
     float movement;
     public bool Undieing {get; private set;}  
@@ -50,7 +53,7 @@ public class Player : MonoBehaviour
     }
     void OnCollisionStay2D(Collision2D other)
     {
-        if (rb.velocity.y <= 0.05f) {
+        if (rb.velocity.y <= 0.2f) {
             if (other.collider.gameObject.GetComponent<Platform>()) {
                 Jump();
             }
@@ -59,7 +62,7 @@ public class Player : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (rb.velocity.y <= 0.05f) {
+        if (rb.velocity.y <= 0.2f) {
             if (other.gameObject.GetComponent<Platform>()) {
                 Jump();
             }
@@ -99,11 +102,16 @@ public class Player : MonoBehaviour
         yield return null;
     }
     IEnumerator DressAks(float duration, GameObject aks) {
+        fill.gameObject.SetActive(true);
+        fill.fillAmount = 1;
+        fillChildren.sprite = aks.GetComponentInChildren<SpriteRenderer>().sprite;
+
         float timer = 0;
         aksEnabled = true;
         GameObject aksessuar = Instantiate(aks, transform);
 
         while (timer <= duration) {
+            fill.fillAmount = 1 - timer / duration;
 
             if (!aksEnabled) Destroy(aksessuar);
 
@@ -111,6 +119,8 @@ public class Player : MonoBehaviour
             yield return null;
 
         }
+        fill.gameObject.SetActive(false);
+
         aksEnabled = false;
         Destroy(aksessuar);
     }

@@ -40,8 +40,8 @@ public class Weapon : MonoBehaviour
     void VirtualShoot() {
         if (Gilze != null) {
             var newGilze = Instantiate(Gilze,transform.position,Quaternion.identity);
-            newGilze.velocity = new Vector2(Random.Range(-4,4),4);
-            newGilze.totalTorque = Random.Range(-10f,10f);
+            newGilze.velocity = new Vector2(Random.Range(-4,4),5);
+            newGilze.AddTorque(Random.Range(-1000f,1000f));
             Destroy(newGilze.gameObject,5);
         }
 
