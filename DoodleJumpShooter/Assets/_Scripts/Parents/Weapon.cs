@@ -4,6 +4,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] bool automaticShooter;
+    [SerializeField] bool enableLazer;
     [SerializeField] protected float ShootIntervall = 0.7f;
     [SerializeField] protected float targetingOffset;
     [SerializeField] protected Transform FirePoint;
@@ -13,12 +14,15 @@ public class Weapon : MonoBehaviour
     protected float timerToShoot;
     Animator anim;
     SpriteRenderer spriteRenderer;
+    LineRenderer line;
     void Start()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponent<Animator>();
         timerToShoot = ShootIntervall;
         player = GameObject.Find("Player").GetComponent<Player>();
+        line = Resources.Load<LineRenderer>("Prefabs/Gilzes/Lazer");
+        if (enableLazer) line = Instantiate(line, FirePoint);
     }
     void Update()
     {
@@ -36,12 +40,24 @@ public class Weapon : MonoBehaviour
                 }
             }
         }
+
+        if (enableLazer) {
+            RaycastHit2D hit = Physics2D.Raycast(FirePoint.position, FirePoint.right, 90);
+            
+            line.SetPosition(0,FirePoint.position);
+            if (hit.point == Vector2.zero) {
+                Vector2 endPoint = FirePoint.position + FirePoint.right * 90; 
+                line.SetPosition(1,endPoint);
+            } 
+            else line.SetPosition(1,hit.point);
+        }
     }
     void VirtualShoot() {
         if (Gilze != null) {
             var newGilze = Instantiate(Gilze,transform.position,Quaternion.identity);
             newGilze.velocity = new Vector2(Random.Range(-4,4),5);
             newGilze.AddTorque(Random.Range(-1000f,1000f));
+            GameManager.objects.Add(newGilze.gameObject);
             Destroy(newGilze.gameObject,5);
         }
 

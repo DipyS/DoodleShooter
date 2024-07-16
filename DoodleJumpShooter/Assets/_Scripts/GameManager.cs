@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using YG;
 
 public class GameManager : MonoBehaviour
 {
+    public static bool canGenerate = true;
     public static GameManager Instance {private set; get;}
     public static List<GameObject> objects = new List<GameObject>();
     public bool gameIsLoosedOrStoped {get; private set;}
@@ -13,6 +15,7 @@ public class GameManager : MonoBehaviour
     public static UnityEvent onRestartGame = new UnityEvent();
     public static UnityEvent onLoseGame = new UnityEvent();
     public static UnityEvent onGenerate = new UnityEvent();
+    public static Slider healthBar;
     public GameObject virtualCamera;
     public Vector2 startSpawnPos{
         get { return new Vector2(transform.position.x - widthSpawn, transform.position.y + height); }
@@ -25,20 +28,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] float height;
     [SerializeField] float widthSpawn;
     [SerializeField] float platformStep = 2.5f;
-    [SerializeField, Header("Состояние игры")] 
-    Player player;
-    [SerializeField] GameObject LosePanel;
+    [SerializeField, Header("Состояние игры")] GameObject LosePanel;
     [SerializeField] TextMeshProUGUI LosePanelScoresText;
     [SerializeField] TextMeshProUGUI scoresTMP;
     [SerializeField] int scoresPerY = 21;
     public int scores {get; private set;}
     public int highScoresGame {get; private set;}
+    public Player player {get; private set; }
     public int highScoresAll {get; private set;}
     bool canLose = true;
     
     void Awake()
     {
         Instance = this;
+        healthBar = GameObject.Find("BossBar").GetComponent<Slider>();
+        healthBar.gameObject.SetActive(false);
     }
     void Start()
     {
@@ -51,8 +55,8 @@ public class GameManager : MonoBehaviour
     {
         UpdateScores();
         if (player.transform.position.y >= spawnHeight) {
-            onGenerate.Invoke();
-            spawnHeight += platformStep;
+            if (canGenerate) onGenerate.Invoke();
+            spawnHeight = player.transform.position.y + platformStep;
         }
         DestroyObjectsOutScreen();
         if (canLose && player.transform.position.y < transform.position.y - height) {
