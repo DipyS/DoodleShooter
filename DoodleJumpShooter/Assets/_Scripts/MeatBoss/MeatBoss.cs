@@ -5,30 +5,17 @@ using UnityEngine;
 public class MeatBoss : Boss
 {
     [SerializeField] List<GameObject> minion;
+    
     [SerializeField] GameObject bullet;
+
     [SerializeField] int onDamageMinionSpawnChance = 4;
     [SerializeField] int shootCount;
+
     [SerializeField] float OffsetAngle;
-    [SerializeField] byte attackCount;
-    Boosters booster;
-    int stage = 1;
+
     public override void Start()
     {
         base.Start();
-        booster = Resources.Load<BoosterPlatformSpawn>("Prefabs/Boosters");
-        Instantiate(booster,GameManager.Instance.player.transform.position, Quaternion.identity).OnActivate();
-    }
-    void Update()
-    {
-        if (health <= healthBar.maxValue / 100 * 45 && stage == 1) 
-        {
-            stage = 2;
-            armor += 20;
-            anim.SetTrigger("stage2");
-            onDamageMinionSpawnChance += 20;
-            minTimer -= 1;
-            maxTimer -= 1;
-        }
     }
     public override void DoRandomAttack()
     {
@@ -60,6 +47,16 @@ public class MeatBoss : Boss
             InstanceMinion();
         }
         base.TakeDamage(damage);
+
+        if (health <= healthBar.maxValue / 100 * 45 && stage == 1) 
+        {
+            stage = 2;
+            armor += 20;
+            anim.SetTrigger("stage2");
+            onDamageMinionSpawnChance += 20;
+            minTimer -= 1;
+            maxTimer -= 1;
+        }
     }
 
     public void InstanceMinion(int count = 1)
@@ -71,15 +68,8 @@ public class MeatBoss : Boss
             }
         }
     }
-
-    public override void Kill()
+    public override void KillAnim()
     {
-        var spawnPos = new Vector2(transform.position.x, transform.position.y - 5);
-        Instantiate(booster, spawnPos, Quaternion.identity).OnActivate();
-        spawnPos = new Vector2(transform.position.x, transform.position.y - 2);
-        Instantiate(booster, spawnPos, Quaternion.identity).OnActivate();
-
-        base.Kill();
-        Destroy(gameObject);
+        Kill();
     }
 }

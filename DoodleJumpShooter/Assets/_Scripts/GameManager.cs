@@ -28,9 +28,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] float height;
     [SerializeField] float widthSpawn;
     [SerializeField] float platformStep = 2.5f;
+
     [SerializeField, Header("Состояние игры")] GameObject LosePanel;
     [SerializeField] TextMeshProUGUI LosePanelScoresText;
     [SerializeField] TextMeshProUGUI scoresTMP;
+
     [SerializeField] int scoresPerY = 21;
     public int scores {get; private set;}
     public int highScoresGame {get; private set;}
@@ -58,6 +60,7 @@ public class GameManager : MonoBehaviour
             if (canGenerate) onGenerate.Invoke();
             spawnHeight = player.transform.position.y + platformStep;
         }
+        
         DestroyObjectsOutScreen();
         if (canLose && player.transform.position.y < transform.position.y - height) {
             Lose();
@@ -97,11 +100,14 @@ public class GameManager : MonoBehaviour
     }
     void DestroyObjectsOutScreen() {
         List<GameObject> objectsToDestroy = new List<GameObject>();
+
         foreach (GameObject obj in objects) {
-            if (obj != null && obj.transform.position.y <= transform.position.y - height) {
+            if (obj != null) {
+                if (obj.transform.position.y <= transform.position.y - height || obj.transform.position.y >= transform.position.y + height + 7)
                 objectsToDestroy.Add(obj);
             }
         }
+
         foreach (GameObject obj in objectsToDestroy) {
             Destroy(obj.gameObject);
             objects.Remove(obj);

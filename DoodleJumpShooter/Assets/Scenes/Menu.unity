@@ -38,6 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -249,10 +250,10 @@ RectTransform:
   - {fileID: 1896286033}
   m_Father: {fileID: 1467239275}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.09962551, y: 0.62233335}
-  m_AnchorMax: {x: 0.90458393, y: 0.77800006}
-  m_AnchoredPosition: {x: -1, y: -1}
-  m_SizeDelta: {x: 2.269989, y: 0.9799957}
+  m_AnchorMin: {x: 0.26435688, y: 0.5557778}
+  m_AnchorMax: {x: 0.73600006, y: 0.8335926}
+  m_AnchoredPosition: {x: 3, y: 5}
+  m_SizeDelta: {x: -3.630005, y: -2.949997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &906960153
 Animator:
@@ -644,12 +645,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 112.8
+  m_fontSize: 237.78
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 0
-  m_fontSizeMax: 112.8
+  m_fontSizeMax: 237.78
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512

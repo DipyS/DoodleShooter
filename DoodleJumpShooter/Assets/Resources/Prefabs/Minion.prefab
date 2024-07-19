@@ -142,7 +142,7 @@ MonoBehaviour:
   damageParticles: {fileID: 0}
   killParticles: {fileID: 0}
   health: 2
-  armor: 3
+  armor: 0
   booster: {fileID: 3783065326366170786, guid: 8176f6c997e216a43be98dbba8674aff, type: 3}
   speed: 4
   dashForce: 4

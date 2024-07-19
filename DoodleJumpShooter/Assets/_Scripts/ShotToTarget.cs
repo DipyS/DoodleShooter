@@ -19,7 +19,7 @@ public class ShotToTarget : MonoBehaviour
         yield return new WaitForSeconds(shootIntervall);
         var newBullet = Instantiate(bullet,transform.position,Quaternion.identity);
         
-        Vector2 difference = new Vector2(transform.position.x - target.position.x,transform.transform.position.y - target.position.y);
+        Vector2 difference = new Vector2(transform.position.x - target.position.x, transform.position.y - target.position.y);
         float Angle = Mathf.Atan2(difference.y,difference.x) * Mathf.Rad2Deg;  
         newBullet.transform.rotation = Quaternion.Euler(0,0,Angle);
 

@@ -8,13 +8,13 @@ public class Entity : MonoBehaviour
     [SerializeField] protected List<Rigidbody2D> slisedSides;
     [SerializeField] protected float MaxForcePart = 4;
     [SerializeField] protected float MaxRotationForcePart = 10;
-    [SerializeField,Space(5)] ParticleSystem damageParticles;
+    [SerializeField,Space(5)] protected ParticleSystem damageParticles;
     [SerializeField] protected ParticleSystem killParticles;
     [SerializeField,Space(5)] protected int health = 1;
     [SerializeField] protected int armor;
-    SpriteRenderer spriteRenderer;
-    Material defauldMaterial;
-    Material blink;
+    protected SpriteRenderer spriteRenderer;
+    protected Material defauldMaterial;
+    protected Material blink;
     protected GameObject floatingText;
 
     void Start()
@@ -65,7 +65,7 @@ public class Entity : MonoBehaviour
         Destroy(gameObject);
     }
 
-    IEnumerator Blink() {
+    protected IEnumerator Blink() {
         if (spriteRenderer != null && defauldMaterial != null && blink != null) {
             spriteRenderer.material = blink;
             yield return new WaitForSeconds(0.1f);

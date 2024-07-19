@@ -137,7 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slisedSides:
   - {fileID: 2173324229434089078, guid: 09032b71186a73a4eb88dc2607c87ccb, type: 3}
-  - {fileID: 2173324229434089078, guid: b5ee1ee4180d5994d85e439888d4da2c, type: 3}
+  - {fileID: 2173324229434089078, guid: 09032b71186a73a4eb88dc2607c87ccb, type: 3}
   MaxForcePart: 4
   MaxRotationForcePart: 10
   damageParticles: {fileID: 0}

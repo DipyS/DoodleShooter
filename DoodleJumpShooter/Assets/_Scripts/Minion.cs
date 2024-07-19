@@ -3,7 +3,6 @@ using UnityEngine;
 public class Minion : Enemy
 {
     [SerializeField] GameObject booster;
-    [SerializeField] float speed = 4;
     [SerializeField] float dashForce = 10;
     [SerializeField] float timeToAttack = 5;
     float timer;

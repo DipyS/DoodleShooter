@@ -20,6 +20,17 @@ public class Carousel : MonoBehaviour
 
     void Update()
     {
+        var removeObjects = new List<GameObject>();
+        foreach (var obj in carouselObjects) {
+            if (obj == null) removeObjects.Add(obj);
+        }
+        foreach (var obj in removeObjects) {
+            carouselObjects.Remove(obj);
+        }
+        if (carouselObjects.Count <= 0) {
+            Destroy(gameObject);
+            return;
+        }
         Radius = Mathf.Lerp(0,StartRadius, Expanshion);
         timer += Time.deltaTime * rotationSpeed;
         float angle = 0;

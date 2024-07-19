@@ -22,10 +22,8 @@ public class BoosterPlatformSpawn : Boosters
             Vector2 newPlatform1 = new Vector2(transform.position.x + currentSpawnIntervall, transform.position.y);
             Vector2 newPlatform2 = new Vector2(transform.position.x - currentSpawnIntervall, transform.position.y);
             var newPlatform = Instantiate(platform, newPlatform1, Quaternion.identity);
-            Destroy(newPlatform, 30);
             GameManager.objects.Add(newPlatform);
             newPlatform = Instantiate(platform, newPlatform2, Quaternion.identity);
-            Destroy(newPlatform, 30);
             GameManager.objects.Add(newPlatform);
 
             currentSpawnIntervall += spawnIntervall / 2;

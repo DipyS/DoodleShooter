@@ -6,23 +6,32 @@ public class Player : MonoBehaviour
 {
     [SerializeField] float speed = 4;
     [SerializeField] float jumpForce = 8;
-    [SerializeField] float springForce = 10;
     [SerializeField] float capSpeed = 5;
     [SerializeField] float capDuration = 2.2f;
     [SerializeField] float rocketSpeed = 7;
-    [SerializeField] float rocketDuration = 3.5f;    
+    [SerializeField] float rocketDuration = 3.5f;   
+
     [SerializeField] GameObject virtualCamera;
     [SerializeField] ParticleSystem jumpParticles;
+
     [SerializeField] Image fill;
     [SerializeField] Image fillChildren;
+
+    [SerializeField] VariableJoystick movementJoystick;
+
     [HideInInspector] public Rigidbody2D rb;
+
     float movement;
+
     public bool Undieing {get; private set;}  
     bool facingRight = true;
     bool aksEnabled;
+
     GameObject cap;
     GameObject rocket;
     Coroutine flyProcess;
+    Animator anim;
+    SpriteRenderer spRenderer;
 
     void Start()
     {
@@ -30,6 +39,9 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         cap = Resources.Load<GameObject>("Prefabs/A_Cap");
         rocket = Resources.Load<GameObject>("Prefabs/A_Rocket");
+        movementJoystick = GameObject.Find("MovementJoystick").GetComponent<VariableJoystick>();
+        anim = GetComponent<Animator>();
+        spRenderer = GetComponent<SpriteRenderer>();
         GameManager.onRestartGame.AddListener(OnRestartGame);
     }
 
@@ -38,18 +50,26 @@ public class Player : MonoBehaviour
         Movement();
     }
     void Movement() {
-        movement = Input.GetAxis("Horizontal");
+        if (Application.isMobilePlatform) {
+            movement = movementJoystick.Direction.x;
+        }
+        else{
+            movement = Input.GetAxis("Horizontal");
+        } 
+        if (movement > 0 && !facingRight || movement < 0 && facingRight) Flip();
         rb.velocity = new Vector2(speed * movement, rb.velocity.y);
-        if (movement > 0 && !facingRight || movement < 0 && facingRight) Flip(); 
     }
     void Jump() {
+        if (movement > 0) anim.SetTrigger("jump2");
+        else if (movement < 0) anim.SetTrigger("jump1");
+
         Instantiate(jumpParticles,transform.position, Quaternion.identity);
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
     void Flip() {
         facingRight = !facingRight;
-        transform.Rotate(0,180,0);
+        spRenderer.flipX = !spRenderer.flipX;
     }
     void OnCollisionStay2D(Collision2D other)
     {

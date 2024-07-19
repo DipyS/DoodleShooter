@@ -4995,5 +4995,5 @@ MonoBehaviour:
   speed: 12
   damage: 0
   hitParticles: {fileID: 0}
-  lifeTime: 0.7
+  lifeTime: 0.9
   explotion: {fileID: -3136645103102789467, guid: 923cecd73355b6d408f5f8469a65b0bd, type: 3}

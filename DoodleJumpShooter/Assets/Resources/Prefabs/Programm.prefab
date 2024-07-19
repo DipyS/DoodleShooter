@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnObjects:
-  - {fileID: 461845033377295242, guid: e479c7c86d675dc4a89de441f43e2c19, type: 3}
+  - {fileID: 7226551323183058333, guid: a38590f1d37eabb4b8361797868f9a42, type: 3}
 --- !u!114 &8018183732935833588
 MonoBehaviour:
   m_ObjectHideFlags: 0

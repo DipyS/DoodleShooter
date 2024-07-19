@@ -3,15 +3,23 @@ using System.Collections;
 
 public class RaycastShooter : Weapon
 {
-    [SerializeField] ParticleSystem hitParticles;
+    [SerializeField, Space(4)] ParticleSystem hitParticles;
     [SerializeField] ParticleSystem shotParticles;
-    [SerializeField] float intervallToShoot;
-    [SerializeField] int shootCount;
-    [SerializeField] float shootDistance;
-    [SerializeField] LayerMask ignoreRaycast;
-    [SerializeField] int damage = 15;
-    [SerializeField,Space(5)] bool VisualizeBullet;
+
+    [SerializeField, Space(4)] LayerMask ignoreRaycast;
     [SerializeField] LineRenderer bullet;
+
+    [SerializeField, Space(4)] int shootCount;
+    [SerializeField] int damage = 15;
+
+    [SerializeField, Space(4)] float intervallToShoot;
+    [SerializeField] float shootDistance;
+    [SerializeField] float autoTargettingAngle = 5;
+    [SerializeField] float autoTargettingCheckIntervall = 1.5f;
+    
+    [SerializeField, Space(4)] bool VisualizeBullet;
+    [SerializeField] bool autoTargetting = true;
+    
     protected override void Shoot()
     {
         StartCoroutine(Shooting());
@@ -27,6 +35,31 @@ public class RaycastShooter : Weapon
             newShotParticles.transform.Rotate(-90,0,0);
 
             RaycastHit2D hit = Physics2D.Raycast(FirePoint.position, FirePoint.right, shootDistance,~ignoreRaycast);
+            
+            //Auto Targetting
+            if (hit.collider == null && autoTargetting) {
+                float currentAngle = autoTargettingCheckIntervall;
+                Quaternion ShotRotation = FirePoint.rotation;
+                
+                while (currentAngle <= autoTargettingAngle) {
+
+                    FirePoint.Rotate(0, 0, currentAngle);
+                    
+                    hit = Physics2D.Raycast(FirePoint.position, FirePoint.right, shootDistance,~ignoreRaycast);
+                    if (hit.collider != null) break;
+
+                    FirePoint.rotation = ShotRotation;
+                    FirePoint.Rotate(0, 0, -currentAngle);
+
+                    hit = Physics2D.Raycast(FirePoint.position, FirePoint.right, shootDistance,~ignoreRaycast);
+                    if (hit.collider != null) break;
+                    
+                    FirePoint.rotation = ShotRotation;
+                    
+                    currentAngle += autoTargettingCheckIntervall;
+                }
+            }
+            
             if (hit.collider != null) {
                 Instantiate(hitParticles, hit.point, Quaternion.identity);
                 if (hit.collider.TryGetComponent(out Entity entity)) {
