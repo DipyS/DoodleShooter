@@ -6,12 +6,18 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     [SerializeField] protected List<Rigidbody2D> slisedSides;
+
     [SerializeField] protected float MaxForcePart = 4;
     [SerializeField] protected float MaxRotationForcePart = 10;
+
     [SerializeField,Space(5)] protected ParticleSystem damageParticles;
     [SerializeField] protected ParticleSystem killParticles;
+
     [SerializeField,Space(5)] protected int health = 1;
     [SerializeField] protected int armor;
+    [SerializeField,Space(10)] protected int droppingMoneyCount;
+
+    protected Money money;
     protected SpriteRenderer spriteRenderer;
     protected Material defauldMaterial;
     protected Material blink;
@@ -22,6 +28,7 @@ public class Entity : MonoBehaviour
         floatingText = Resources.Load<GameObject>("Prefabs/floatingText");
         defauldMaterial = Resources.Load<Material>("Materials/DipyDefauld");
         blink = Resources.Load<Material>("Materials/Blink");
+        money = Resources.Load<Money>("Prefabs/Money");
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>(); 
     }
@@ -30,6 +37,7 @@ public class Entity : MonoBehaviour
         floatingText = Resources.Load<GameObject>("Prefabs/floatingText");
         defauldMaterial = Resources.Load<Material>("Materials/DipyDefauld");
         blink = Resources.Load<Material>("Materials/Blink");
+        money = Resources.Load<Money>("Prefabs/Money");
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>(); 
     }
@@ -51,14 +59,8 @@ public class Entity : MonoBehaviour
     }
 
     public virtual void Kill() {
-        foreach (var p in slisedSides)
-        {
-            Rigidbody2D newPart = Instantiate(p, transform.position,Quaternion.identity);
-            newPart.velocity = new Vector2(Random.Range(-MaxForcePart,MaxForcePart),MaxForcePart);
-            newPart.AddTorque(Random.Range(-MaxRotationForcePart,MaxRotationForcePart));
-            GameManager.objects.Add(newPart.gameObject);
-            Destroy(newPart.gameObject,4);
-        }
+        DropMoney();
+        DropParts();
         CameraShake.singleton.Shake(0.3f,4);
 
         if (killParticles != null) Instantiate(killParticles, transform.position, Quaternion.identity);
@@ -70,6 +72,23 @@ public class Entity : MonoBehaviour
             spriteRenderer.material = blink;
             yield return new WaitForSeconds(0.1f);
             spriteRenderer.material = defauldMaterial;
+        }
+    }
+    
+    protected void DropMoney() {
+        for (int i = 0; i < droppingMoneyCount; i++) {
+            Instantiate(money, transform.position, Quaternion.identity);
+        }
+    }
+    
+    protected void DropParts() {
+        foreach (var p in slisedSides)
+        {
+            Rigidbody2D newPart = Instantiate(p, transform.position,Quaternion.identity);
+            newPart.velocity = new Vector2(Random.Range(-MaxForcePart,MaxForcePart),MaxForcePart);
+            newPart.AddTorque(Random.Range(-MaxRotationForcePart,MaxRotationForcePart));
+            GameManager.objects.Add(newPart.gameObject);
+            Destroy(newPart.gameObject,4);
         }
     }
 }

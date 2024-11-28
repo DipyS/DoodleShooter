@@ -561,10 +561,11 @@ MonoBehaviour:
   - {fileID: 2173324229434089078, guid: 4689e377595bfdc428f09d4a40ff5bcb, type: 3}
   MaxForcePart: 4
   MaxRotationForcePart: 10
-  damageParticles: {fileID: 4395922594774959546, guid: 320a18dc4e4a48d4fbe99710356f6b86, type: 3}
+  damageParticles: {fileID: 4395922594774959546, guid: 1b31934a70d8ace4fbff327c90a0f984, type: 3}
   killParticles: {fileID: 0}
-  health: 4500
+  health: 6000
   armor: 0
+  droppingMoneyCount: 20
   bossIcon: {fileID: 539891233, guid: c4aed016af8b24a4aaf0f7bacbfb04e7, type: 3}
   attackCount: 4
   minTimer: 1

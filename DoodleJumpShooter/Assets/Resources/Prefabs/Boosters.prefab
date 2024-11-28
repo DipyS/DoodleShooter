@@ -133,15 +133,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb8f4e072997a7b468136c86cccd652c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slisedSides: []
+  slisedSides:
+  - {fileID: 2173324229434089078, guid: a1384a2e7a90fa94a8b1b8cc4688c210, type: 3}
   MaxForcePart: 4
   MaxRotationForcePart: 10
   damageParticles: {fileID: 0}
   killParticles: {fileID: 0}
-  floatingText: {fileID: 0}
   health: 1
   armor: 0
+  droppingMoneyCount: 0
   platform: {fileID: 5184613349271351717, guid: 05036d269b3aa234c85fc5bb6a252f7e, type: 3}
   spawnSpeed: 0.08
   spawnIntervall: 2.5
-  spawnCount: 15
+  spawnCount: 18

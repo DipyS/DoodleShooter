@@ -7,12 +7,10 @@ public class BoosterPlatformSpawn : Boosters
     [SerializeField] float spawnSpeed = 0.3f;
     [SerializeField] float spawnIntervall = 1.2f;
     [SerializeField] int spawnCount = 5;
-    Sprite sprite;
 
     public override void OnActivate()
     {
-        GetComponent<SpriteRenderer>().sprite = sprite;
-        Destroy(GetComponent<Collider2D>());
+        base.OnActivate();
         StartCoroutine(Spawn());
     }
 

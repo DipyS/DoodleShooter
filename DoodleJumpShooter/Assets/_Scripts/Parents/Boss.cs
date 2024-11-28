@@ -18,20 +18,24 @@ public class Boss : Enemy
     protected Animator anim;
     protected Slider healthBar;
     protected Boosters booster;
+    protected TextMeshProUGUI healthText;
 
     public virtual void Start()
     {
+        GameManager.onBossSpawn.Invoke();
         timerAttack = Random.Range(minTimer,maxTimer);
         GameManager.onRestartGame.AddListener(Kill);
         GameManager.canGenerate = false;
         healthBar = GameManager.healthBar;
         healthBar.gameObject.SetActive(true);
+        healthText = healthBar.GetComponentInChildren<TextMeshProUGUI>();
         GameObject.Find("BossIcon").GetComponent<Image>().sprite = bossIcon;
 
         anim = GetComponent<Animator>();
 
         healthBar.maxValue = health;
         healthBar.value = health;
+        healthText.text = $"{healthBar.maxValue}/{health}"; 
         
         booster = Resources.Load<BoosterPlatformSpawn>("Prefabs/Boosters");
         Invoke(nameof(SpawnArea),1);
@@ -58,13 +62,14 @@ public class Boss : Enemy
         if (damageParticles != null) Instantiate(damageParticles, transform.position,Quaternion.identity);
         var newDamage = damage - ((float)damage / 100 * armor); //Применение поглощения урона:000
         if (newDamage <= 0) newDamage = 1;
-
+    
         if (floatingText != null) Instantiate(floatingText, new Vector2(transform.position.x + Random.Range(-0.5f,0.5f),transform.position.y + Random.Range(-0.5f,0.5f)), Quaternion.identity).GetComponentInChildren<TextMeshPro>().text = Mathf.Round(newDamage).ToString();
 
         health -= (int)newDamage;
         if (health <= 0) KillAnim();
 
         healthBar.value = health;
+        healthText.text = $"{healthBar.maxValue}/{health}"; 
     }
     public virtual void KillAnim() {
         anim.SetTrigger("kill");
@@ -78,7 +83,9 @@ public class Boss : Enemy
             Instantiate(booster, spawnPos, Quaternion.identity).OnActivate();
             spawnPos = new Vector2(transform.position.x, transform.position.y - 2);
             Instantiate(booster, spawnPos, Quaternion.identity).OnActivate();
-            spawnPos = new Vector2(transform.position.x, transform.position.y);
+            spawnPos = new Vector2(transform.position.x, transform.position.y + 1);
+            Instantiate(booster, spawnPos, Quaternion.identity).OnActivate();
+            spawnPos = new Vector2(transform.position.x, transform.position.y + 4);
             Instantiate(booster, spawnPos, Quaternion.identity).OnActivate();
         }
         GameManager.canGenerate = true;

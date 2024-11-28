@@ -37,7 +37,8 @@ public class Carousel : MonoBehaviour
         float offset = 360 / carouselObjects.Count;
         for (int i = 0; i < carouselObjects.Count; i++) {
             angle += offset;
-            carouselObjects[i].transform.position = new Vector2(Mathf.Sin((angle + timer) * Mathf.Deg2Rad) * Radius + transform.position.x, Mathf.Cos((angle + timer) * Mathf.Deg2Rad) * Radius + transform.position.y + YOffset);
+            carouselObjects[i].transform.position = new Vector2(Mathf.Sin((angle + timer) * Mathf.Deg2Rad) * 
+            Radius + transform.position.x, Mathf.Cos((angle + timer) * Mathf.Deg2Rad) * Radius + transform.position.y + YOffset);
         }
     }
 }

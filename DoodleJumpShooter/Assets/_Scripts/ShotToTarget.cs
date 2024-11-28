@@ -8,7 +8,7 @@ public class ShotToTarget : MonoBehaviour
     [SerializeField] GameObject bullet;
     [SerializeField] Transform target;
     [SerializeField] float shootIntervall;
-
+    
     void Start()
     {
         target = GameObject.Find("Player").transform;

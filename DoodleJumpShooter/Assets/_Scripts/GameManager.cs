@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public static UnityEvent onRestartGame = new UnityEvent();
     public static UnityEvent onLoseGame = new UnityEvent();
     public static UnityEvent onGenerate = new UnityEvent();
+    public static UnityEvent onBossSpawn = new UnityEvent();
     public static Slider healthBar;
     public GameObject virtualCamera;
     public Vector2 startSpawnPos{
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
     public int scores {get; private set;}
     public int highScoresGame {get; private set;}
     public Player player {get; private set; }
-    public int highScoresAll {get; private set;}
+    [HideInInspector] public int highScoresAll;
     bool canLose = true;
     
     void Awake()
@@ -94,8 +95,10 @@ public class GameManager : MonoBehaviour
         gameIsLoosedOrStoped = true;
         LosePanel.SetActive(true);
         LosePanelScoresText.text = "Scores : " + highScoresGame.ToString();
-        if (highScoresGame > highScoresAll) highScoresAll = highScoresGame;
-        YandexGame.NewLeaderboardScores("High Scores", highScoresAll);
+        if (highScoresGame > highScoresAll) {
+            highScoresAll = highScoresGame;
+            YandexGame.NewLeaderboardScores("HighScores", highScoresAll);
+        }
         player.GetComponent<BoxCollider2D>().enabled = false;
     }
     void DestroyObjectsOutScreen() {

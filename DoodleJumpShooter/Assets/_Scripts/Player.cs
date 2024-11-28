@@ -39,10 +39,11 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         cap = Resources.Load<GameObject>("Prefabs/A_Cap");
         rocket = Resources.Load<GameObject>("Prefabs/A_Rocket");
-        movementJoystick = GameObject.Find("MovementJoystick").GetComponent<VariableJoystick>();
+        movementJoystick ??= GameObject.Find("MovementJoystick").GetComponent<VariableJoystick>();
         anim = GetComponent<Animator>();
         spRenderer = GetComponent<SpriteRenderer>();
         GameManager.onRestartGame.AddListener(OnRestartGame);
+        GameManager.onBossSpawn.AddListener(StopFly);
     }
 
     void Update()
@@ -133,8 +134,10 @@ public class Player : MonoBehaviour
         while (timer <= duration) {
             fill.fillAmount = 1 - timer / duration;
 
-            if (!aksEnabled) Destroy(aksessuar);
-
+            if (!aksEnabled) {
+                Destroy(aksessuar);
+                fill.gameObject.SetActive(false);
+            }
             timer += Time.deltaTime;
             yield return null;
 
@@ -150,8 +153,12 @@ public class Player : MonoBehaviour
         Undieing = false;
     }
 
-    void OnRestartGame() {
+    void StopFly() {
         aksEnabled = false;
         if (flyProcess != null) StopCoroutine(flyProcess);
+    }
+
+    void OnRestartGame() {
+        StopFly();
     }
 }

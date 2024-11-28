@@ -71,5 +71,6 @@ public class MeatBoss : Boss
     public override void KillAnim()
     {
         Kill();
+        DropMoney();
     }
 }

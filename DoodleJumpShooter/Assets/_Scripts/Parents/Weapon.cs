@@ -37,22 +37,24 @@ public class Weapon : MonoBehaviour
     {
         timerToShoot -= Time.deltaTime;
         transform.position = player.transform.position;
+        Vector2 mousePos;
+                
+        if (Application.isMobilePlatform)
+            mousePos =  new Vector2(ShotJoystick.Direction.x * directionMultyplayer + transform.position.x, ShotJoystick.Direction.y * directionMultyplayer + transform.position.y);
+        else 
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+        RotateGun(mousePos);
         if (!GameManager.Instance.gameIsLoosedOrStoped && timerToShoot <= 0) {
-            Vector2 mousePos;
 
             //На телефоне
             if (Application.isMobilePlatform) {
-                mousePos =  new Vector2(ShotJoystick.Direction.x * directionMultyplayer + transform.position.x, ShotJoystick.Direction.y * directionMultyplayer + transform.position.y);
-                RotateGun(mousePos);
                 
                 if (ShotJoystick.Direction.x >= 0.5 || ShotJoystick.Direction.x <= -0.5 || ShotJoystick.Direction.y >= 0.5 || ShotJoystick.Direction.y <= -0.5) {
                     VirtualShoot(mousePos);
                 }
             } 
             else {
-                mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                RotateGun(mousePos);
 
                 if (automaticShooter) {
                     if (Input.GetMouseButton(0)) {
@@ -88,9 +90,9 @@ public class Weapon : MonoBehaviour
             Destroy(newGilze.gameObject,5);
         }
 
-        Vector2 knockbackDirection = new Vector2(transform.position.x - shotDirection.x,transform.position.y - shotDirection.y);
+        Vector2 knockbackDirection = new Vector2(0,transform.position.y - shotDirection.y);
         
-        player.rb.AddForce(new Vector2(player.rb.velocity.x, knockbackDirection.normalized.y * knockbackForce),ForceMode2D.Impulse);
+        player.rb.AddForce(new Vector2(0, knockbackDirection.normalized.y * knockbackForce));
         CameraShake.singleton.Shake(0.3f,5);
         timerToShoot = ShootIntervall;
         Shoot();

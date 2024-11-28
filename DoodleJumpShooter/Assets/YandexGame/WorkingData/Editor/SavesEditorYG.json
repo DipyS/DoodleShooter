@@ -1,0 +1,22 @@
+{
+    "idSave": 2158,
+    "isFirstSession": false,
+    "language": "ru",
+    "promptDone": false,
+    "money": 1,
+    "newPlayerName": "Hello!",
+    "openLevels": [
+        false,
+        true,
+        false
+    ],
+    "UnlockedItems": [
+        "Pistol",
+        "Pistol",
+        "Sight",
+        "ShotGun",
+        "GranadeShooter"
+    ],
+    "HighScores": 5376,
+    "Money": 1280
+}

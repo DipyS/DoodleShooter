@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 6448740166440728114}
   - component: {fileID: -5661221231696808967}
   - component: {fileID: 8992885379337858776}
+  - component: {fileID: 7770892166294530578}
   m_Layer: 0
   m_Name: Enemy Shooter
   m_TagString: Untagged
@@ -210,7 +211,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 3807610566497216161, guid: 33645040014452747bd7798da756815f, type: 3}
   target: {fileID: 0}
-  shootIntervall: 3
+  shootIntervall: 6
+--- !u!114 &7770892166294530578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8477839839132186209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91135f434e7261c4ba9dbc54f2330909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slisedSides:
+  - {fileID: 5210884772606399845, guid: 87fc15bc76a03f347b5f6ca3563ed21b, type: 3}
+  - {fileID: 5001650181574231633, guid: 37c55ea77aa0b2a4cb65523b3f06b6fb, type: 3}
+  - {fileID: 5404027335042078963, guid: 45927117e1407b344b79348fcf6fd55a, type: 3}
+  - {fileID: 3583791386276652315, guid: 8b35edaffca494b4caf7d272ca4af7fc, type: 3}
+  MaxForcePart: 4
+  MaxRotationForcePart: 10
+  damageParticles: {fileID: 0}
+  killParticles: {fileID: 0}
+  health: 200
+  armor: 25
+  droppingMoneyCount: 5
 --- !u!1001 &6602418703864761292
 PrefabInstance:
   m_ObjectHideFlags: 0

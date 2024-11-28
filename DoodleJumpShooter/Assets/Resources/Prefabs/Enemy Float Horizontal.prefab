@@ -163,9 +163,9 @@ MonoBehaviour:
   MaxRotationForcePart: 10
   damageParticles: {fileID: 591590650703885471, guid: 609337f987d89f44c912b96d8095b1a9, type: 3}
   killParticles: {fileID: 3706886046613053755, guid: d16e79822a5789b44887e504549d1981, type: 3}
-  floatingText: {fileID: 606236807244003302, guid: 804352e63c166194d9eb3e6f961466f0, type: 3}
   health: 80
   armor: 25
+  droppingMoneyCount: 3
 --- !u!58 &6658659442386088739
 CircleCollider2D:
   m_ObjectHideFlags: 0

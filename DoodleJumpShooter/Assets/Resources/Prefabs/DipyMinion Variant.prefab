@@ -28,6 +28,34 @@ PrefabInstance:
       propertyPath: m_Offset.x
       value: -0.0068350434
       objectReference: {fileID: 0}
+    - target: {fileID: 7770892166294530578, guid: d30cf9aa22aaab04da043ace8d20ba1b, type: 3}
+      propertyPath: armor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770892166294530578, guid: d30cf9aa22aaab04da043ace8d20ba1b, type: 3}
+      propertyPath: health
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770892166294530578, guid: d30cf9aa22aaab04da043ace8d20ba1b, type: 3}
+      propertyPath: slisedSides.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770892166294530578, guid: d30cf9aa22aaab04da043ace8d20ba1b, type: 3}
+      propertyPath: slisedSides.Array.data[0]
+      value: 
+      objectReference: {fileID: 2173324229434089078, guid: c4c663b7b522e6745a19e6f50ee29d46, type: 3}
+    - target: {fileID: 7770892166294530578, guid: d30cf9aa22aaab04da043ace8d20ba1b, type: 3}
+      propertyPath: slisedSides.Array.data[1]
+      value: 
+      objectReference: {fileID: 2173324229434089078, guid: 6ba2141b59f1dca429c3010a4cdc6681, type: 3}
+    - target: {fileID: 7770892166294530578, guid: d30cf9aa22aaab04da043ace8d20ba1b, type: 3}
+      propertyPath: slisedSides.Array.data[2]
+      value: 
+      objectReference: {fileID: 3583791386276652315, guid: 8b35edaffca494b4caf7d272ca4af7fc, type: 3}
+    - target: {fileID: 7904819068234753575, guid: d30cf9aa22aaab04da043ace8d20ba1b, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8052464110726585312, guid: d30cf9aa22aaab04da043ace8d20ba1b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -72,9 +100,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: DipyMinion Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8477839839132186209, guid: d30cf9aa22aaab04da043ace8d20ba1b, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8992885379337858776, guid: d30cf9aa22aaab04da043ace8d20ba1b, type: 3}
       propertyPath: shootIntervall
-      value: 8
+      value: 3.6
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6448740166440728114, guid: d30cf9aa22aaab04da043ace8d20ba1b, type: 3}
@@ -115,10 +147,10 @@ MonoBehaviour:
   killParticles: {fileID: 0}
   health: 55
   armor: 0
+  droppingMoneyCount: 3
   booster: {fileID: 3783065326366170786, guid: 8176f6c997e216a43be98dbba8674aff, type: 3}
-  speed: 0
   dashForce: 2
-  timeToAttack: 6
+  timeToAttack: 2
 --- !u!114 &2592200224995212360
 MonoBehaviour:
   m_ObjectHideFlags: 0

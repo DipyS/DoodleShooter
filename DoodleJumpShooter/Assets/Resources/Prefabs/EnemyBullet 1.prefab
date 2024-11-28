@@ -78,11 +78,12 @@ MonoBehaviour:
   slisedSides: []
   MaxForcePart: 4
   MaxRotationForcePart: 10
-  damageParticles: {fileID: 4395922594774959546, guid: 320a18dc4e4a48d4fbe99710356f6b86, type: 3}
-  killParticles: {fileID: 4395922594774959546, guid: 320a18dc4e4a48d4fbe99710356f6b86, type: 3}
+  damageParticles: {fileID: 4395922594774959546, guid: 1b31934a70d8ace4fbff327c90a0f984, type: 3}
+  killParticles: {fileID: 4395922594774959546, guid: 1b31934a70d8ace4fbff327c90a0f984, type: 3}
   health: 1
   armor: 0
-  speed: 9
+  droppingMoneyCount: 0
+  speed: 7
   lifeTime: 7
   particle: {fileID: 0}
 --- !u!70 &2741162195107661202
