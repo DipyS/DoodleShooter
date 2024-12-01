@@ -211,7 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 3807610566497216161, guid: 33645040014452747bd7798da756815f, type: 3}
   target: {fileID: 0}
-  shootIntervall: 6
+  shootIntervall: 3
 --- !u!114 &7770892166294530578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,7 +235,7 @@ MonoBehaviour:
   killParticles: {fileID: 0}
   health: 200
   armor: 25
-  droppingMoneyCount: 5
+  droppingMoneyCount: 10
 --- !u!1001 &6602418703864761292
 PrefabInstance:
   m_ObjectHideFlags: 0

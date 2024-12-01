@@ -66,8 +66,10 @@ public class Boss : Enemy
         if (floatingText != null) Instantiate(floatingText, new Vector2(transform.position.x + Random.Range(-0.5f,0.5f),transform.position.y + Random.Range(-0.5f,0.5f)), Quaternion.identity).GetComponentInChildren<TextMeshPro>().text = Mathf.Round(newDamage).ToString();
 
         health -= (int)newDamage;
-        if (health <= 0) KillAnim();
-
+        if (health <= 0) {
+            health = 0; 
+            KillAnim();
+        }
         healthBar.value = health;
         healthText.text = $"{healthBar.maxValue}/{health}"; 
     }

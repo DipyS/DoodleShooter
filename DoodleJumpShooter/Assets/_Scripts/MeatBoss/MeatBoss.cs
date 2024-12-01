@@ -41,6 +41,8 @@ public class MeatBoss : Boss
 
     public override void TakeDamage(int damage)
     {
+        if (health <= 0) return;
+        
         int chance = Random.Range(1,101);
         if (chance <= onDamageMinionSpawnChance) 
         {

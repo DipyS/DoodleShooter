@@ -92,7 +92,7 @@ public class Weapon : MonoBehaviour
 
         Vector2 knockbackDirection = new Vector2(0,transform.position.y - shotDirection.y);
         
-        player.rb.AddForce(new Vector2(0, knockbackDirection.normalized.y * knockbackForce));
+        player.rb.AddForce(new Vector2(0, knockbackDirection.normalized.y * knockbackForce), ForceMode2D.Impulse);
         CameraShake.singleton.Shake(0.3f,5);
         timerToShoot = ShootIntervall;
         Shoot();

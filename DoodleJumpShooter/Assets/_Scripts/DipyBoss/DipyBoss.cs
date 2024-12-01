@@ -65,6 +65,8 @@ public class DipyBoss : Boss
     }
     public override void TakeDamage(int damage)
     {
+        if (health <= 0) return;
+        
         StartCoroutine(Blink());
         if (damageParticles != null) Instantiate(damageParticles, new Vector2(BodyPos.x + transform.position.x, BodyPos.y + transform.position.y),Quaternion.identity);
         var newDamage = damage - ((float)damage / 100 * armor); //Применение поглощения урона:000
@@ -73,7 +75,10 @@ public class DipyBoss : Boss
         if (floatingText != null) Instantiate(floatingText, new Vector2(BodyPos.x + transform.position.x + Random.Range(-0.5f,0.5f),BodyPos.y + transform.position.y +Random.Range(-0.5f,0.5f)), Quaternion.identity).GetComponentInChildren<TextMeshPro>().text = Mathf.Round(newDamage).ToString();
 
         health -= (int)newDamage;
-        if (health <= 0) KillAnim();
+        if (health <= 0) {
+            health = 0; 
+            KillAnim();
+        }
 
         if (healthBar != null) {
             healthBar.value = health;

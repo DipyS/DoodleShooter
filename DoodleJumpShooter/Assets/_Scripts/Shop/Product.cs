@@ -21,7 +21,7 @@ public class Product : MonoBehaviour
         onBuy.AddListener(CheckPrice);
         textTip = GetComponentInChildren<Button>().GetComponentInChildren<TextMeshProUGUI>();
         if (Inventory.singleton.CheckUnlocked(productName)) {
-            UnlockProduct();
+            UnlockProduct(false);
         }
         if (productName == "Pistol") {
             WeaponSwitcher.singleton.SwitchWeaponTo(productName);
@@ -70,12 +70,12 @@ public class Product : MonoBehaviour
         isSelected = false;
     }
 
-    virtual public void UnlockProduct() {
+    virtual public void UnlockProduct(bool needSelect = true) {
         onBuy.Invoke();
         Destroy(textPrice.gameObject);
-        Inventory.singleton.Unlock(productName);
+        if (!Inventory.singleton.CheckUnlocked(productName)) Inventory.singleton.Unlock(productName);
         isUnlocked = true;
-        Select();
+        if (needSelect) Select();
     }
     virtual public void VisualBuy() {
         if (buyParticles != null) Instantiate(buyParticles, transform.position, Quaternion.identity);

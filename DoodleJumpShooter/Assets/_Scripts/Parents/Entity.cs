@@ -43,8 +43,10 @@ public class Entity : MonoBehaviour
     }
 
     public virtual void TakeDamage(int damage) {
+        if (health <= 0) return;
+
         StartCoroutine(Blink());
-        if (damageParticles != null) Instantiate(damageParticles, transform.position,Quaternion.identity);
+        if (damageParticles != null) Instantiate(damageParticles, transform.position, Quaternion.identity);
         var newDamage = damage - ((float)damage / 100 * armor); //Применение поглощения урона:000
         if (newDamage <= 0) newDamage = 1;
 
