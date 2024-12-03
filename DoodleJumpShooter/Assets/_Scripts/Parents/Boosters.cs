@@ -5,6 +5,9 @@ public class Boosters : Entity
     Sprite sprite;
     public override void TakeDamage(int damage)
     {
+        if (health <= 0) return;
+
+        health = 0;
         OnActivate();
         DropParts();
     }

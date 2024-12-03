@@ -3,12 +3,12 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] bool automaticShooter;
+    [SerializeField] public bool automaticShooter;
     [SerializeField] bool enableLazer;
 
-    [SerializeField] protected float ShootIntervall = 0.7f;
-    [SerializeField] protected float targetingOffset;
-    [SerializeField] protected float knockbackForce = 8;
+    [SerializeField] public float ShootIntervall = 0.7f;
+    [SerializeField] public float targetingOffset;
+    [SerializeField] public float knockbackForce = 8;
 
     [SerializeField] protected Transform FirePoint;
     [SerializeField] protected Rigidbody2D Gilze;

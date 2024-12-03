@@ -133,7 +133,8 @@ MonoBehaviour:
   killParticles: {fileID: 4395922594774959546, guid: 320a18dc4e4a48d4fbe99710356f6b86, type: 3}
   health: 1
   armor: 0
-  speed: -2.5
+  droppingMoneyCount: 0
+  speed: -4.5
   lifeTime: 5
   particle: {fileID: 0}
 --- !u!70 &2741162195107661202

@@ -72,7 +72,10 @@ public class DipyBoss : Boss
         var newDamage = damage - ((float)damage / 100 * armor); //Применение поглощения урона:000
         if (newDamage <= 0) newDamage = 1;
 
-        if (floatingText != null) Instantiate(floatingText, new Vector2(BodyPos.x + transform.position.x + Random.Range(-0.5f,0.5f),BodyPos.y + transform.position.y +Random.Range(-0.5f,0.5f)), Quaternion.identity).GetComponentInChildren<TextMeshPro>().text = Mathf.Round(newDamage).ToString();
+        if (Random.Range(1,11) <= 2) {
+            newDamage *= 2;
+            if (floatingCrit != null) Instantiate(floatingCrit, new Vector2(BodyPos.x + transform.position.x + Random.Range(-0.5f,0.5f),BodyPos.y + transform.position.y +Random.Range(-0.5f,0.5f)), Quaternion.identity).GetComponentInChildren<TextMeshPro>().text = Mathf.Round(newDamage).ToString() + "!";
+        } else if (floatingText != null) Instantiate(floatingText, new Vector2(BodyPos.x + transform.position.x + Random.Range(-0.5f,0.5f),BodyPos.y + transform.position.y +Random.Range(-0.5f,0.5f)), Quaternion.identity).GetComponentInChildren<TextMeshPro>().text = Mathf.Round(newDamage).ToString();
 
         health -= (int)newDamage;
         if (health <= 0) {

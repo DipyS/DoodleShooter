@@ -355,7 +355,7 @@ MonoBehaviour:
   MaxRotationForcePart: 25
   damageParticles: {fileID: 4395922594774959546, guid: 320a18dc4e4a48d4fbe99710356f6b86, type: 3}
   killParticles: {fileID: 4395922594774959546, guid: 320a18dc4e4a48d4fbe99710356f6b86, type: 3}
-  health: 5000
+  health: 8000
   armor: 0
   droppingMoneyCount: 20
   bossIcon: {fileID: -851322249, guid: b47691d23bdee754abb1ead16732e2aa, type: 3}
@@ -368,7 +368,7 @@ MonoBehaviour:
   - {fileID: 6637980056685735010, guid: 93891ca6159889248bab46d36f5881f9, type: 3}
   bullet: {fileID: 3807610566497216161, guid: 33645040014452747bd7798da756815f, type: 3}
   onDamageMinionSpawnChance: 40
-  shootCount: 4
+  shootCount: 8
   OffsetAngle: 20
 --- !u!1001 &2571548330066825086
 PrefabInstance:

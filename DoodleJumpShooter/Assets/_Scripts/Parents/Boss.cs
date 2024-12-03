@@ -25,6 +25,7 @@ public class Boss : Enemy
         GameManager.onBossSpawn.Invoke();
         timerAttack = Random.Range(minTimer,maxTimer);
         GameManager.onRestartGame.AddListener(Kill);
+        floatingCrit = Resources.Load<GameObject>("Prefabs/floatingCrit");
         GameManager.canGenerate = false;
         healthBar = GameManager.healthBar;
         healthBar.gameObject.SetActive(true);

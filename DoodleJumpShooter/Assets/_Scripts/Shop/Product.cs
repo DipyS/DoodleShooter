@@ -76,6 +76,7 @@ public class Product : MonoBehaviour
         if (!Inventory.singleton.CheckUnlocked(productName)) Inventory.singleton.Unlock(productName);
         isUnlocked = true;
         if (needSelect) Select();
+        else textTip.text = "Select";
     }
     virtual public void VisualBuy() {
         if (buyParticles != null) Instantiate(buyParticles, transform.position, Quaternion.identity);
