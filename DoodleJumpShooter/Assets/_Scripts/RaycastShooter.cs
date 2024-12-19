@@ -9,12 +9,12 @@ public class RaycastShooter : Weapon
     [SerializeField, Space(4)] LayerMask ignoreRaycast;
     [SerializeField] LineRenderer bullet;
 
-    [SerializeField, Space(4)] int shootCount;
-    [SerializeField] int damage = 15;
+    [Space(4)] public int shootCount;
+    public int damage = 15;
 
     [SerializeField, Space(4)] float intervallToShoot;
     [SerializeField] float shootDistance;
-    [SerializeField] float autoTargettingAngle = 5;
+    public float autoTargettingAngle = 5;
     [SerializeField] float autoTargettingCheckIntervall = 1.5f;
     
     [SerializeField, Space(4)] bool VisualizeBullet;
@@ -26,6 +26,7 @@ public class RaycastShooter : Weapon
     }
     IEnumerator Shooting() {
         for (int i = 0; i < shootCount; i++) {
+            GameManager.Instance.PlaySound(shotSound);
             timerToShoot = float.MaxValue;
             
             Quaternion firePointDefauldRotation = FirePoint.rotation;

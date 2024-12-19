@@ -553,6 +553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c190c29670616934397c13f69ab64253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blood: {fileID: 0}
   slisedSides:
   - {fileID: 2173324229434089078, guid: b5ee1ee4180d5994d85e439888d4da2c, type: 3}
   - {fileID: 2173324229434089078, guid: ccb9914266439d446b23184a071864f3, type: 3}
@@ -563,9 +564,12 @@ MonoBehaviour:
   MaxRotationForcePart: 10
   damageParticles: {fileID: 4395922594774959546, guid: 1b31934a70d8ace4fbff327c90a0f984, type: 3}
   killParticles: {fileID: 0}
-  health: 6000
+  health: 4500
   armor: 0
   droppingMoneyCount: 20
+  deathSound: {fileID: 8300000, guid: 11673f4c7d575a54e97f111cef648d16, type: 3}
+  spawnHealthBar: {fileID: 0}
+  contanctDamage: 1
   bossIcon: {fileID: 539891233, guid: c4aed016af8b24a4aaf0f7bacbfb04e7, type: 3}
   attackCount: 4
   minTimer: 1
@@ -575,7 +579,10 @@ MonoBehaviour:
   Minion: {fileID: 7226551323183058333, guid: a38590f1d37eabb4b8361797868f9a42, type: 3}
   SecondStageObject: {fileID: 838855498118107798, guid: e96e8eb1213173a4b8d69013560e4bc1, type: 3}
   ShotBulletParticles: {fileID: 591590650703885471, guid: bf5ec5d857a58634ea210f70c9891b15, type: 3}
-  ShotParticles: {fileID: 591590650703885471, guid: bf5ec5d857a58634ea210f70c9891b15, type: 3}
+  ShotLazerParticles: {fileID: 591590650703885471, guid: 1a9701eda57aafc4983aa596541fd5de, type: 3}
+  lazerSound: {fileID: 8300000, guid: 27ab03e908a564a4ea6dd42a0fee66e4, type: 3}
+  shotSound: {fileID: 8300000, guid: 2f7f030bf3b9a26409411ba8d98190e2, type: 3}
+  secondStageSound: {fileID: 8300000, guid: d08598a937c52264ea728d097124c36b, type: 3}
   LeftHandShotPoint: {fileID: 5684868324242956977}
   RightHandShotPoint: {fileID: 7525833226575972005}
   Body: {fileID: 7404423438631522286}

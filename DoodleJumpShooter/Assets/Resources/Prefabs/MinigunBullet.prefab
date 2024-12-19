@@ -165,4 +165,4 @@ MonoBehaviour:
   damage: 40
   hitParticles: {fileID: 5363582511371048149, guid: 0009d0eb1cc47a842bee2120c9c9203c, type: 3}
   lifeTime: 0.7
-  bouncingCount: 2
+  bouncingCount: 3

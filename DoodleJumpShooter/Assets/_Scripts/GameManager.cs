@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     [SerializeField, Header("Состояние игры")] GameObject LosePanel;
     [SerializeField] TextMeshProUGUI LosePanelScoresText;
     [SerializeField] TextMeshProUGUI scoresTMP;
+    [SerializeField] AudioSource sound;
 
     [SerializeField] int scoresPerY = 21;
     public int scores {get; private set;}
@@ -89,7 +90,16 @@ public class GameManager : MonoBehaviour
         scores = (int)player.transform.position.y * scoresPerY;
         if (scores > highScoresGame) highScoresGame = scores;
         scoresTMP.text = highScoresGame.ToString();
-    }    
+    }  
+
+    public void PlaySound(AudioClip clip, float duration = 1) {
+        var newSound = Instantiate(sound, transform.position, Quaternion.identity);
+        newSound.clip = clip;
+        newSound.pitch += Random.Range(-0.2f, 0.2f);
+        Destroy(newSound.gameObject, duration);
+        newSound.Play();
+    }
+
     public void Lose() {
         onLoseGame.Invoke();
         gameIsLoosedOrStoped = true;

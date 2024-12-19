@@ -1,5 +1,5 @@
 {
-    "idSave": 38091,
+    "idSave": 218066,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -17,8 +17,9 @@
         "Sight",
         "GranadeShooter",
         "ShotGun",
-        "OnyxBlaster"
+        "OnyxBlaster",
+        "FlameGun"
     ],
     "HighScores": 16359,
-    "Money": 59075
+    "Money": 169185
 }

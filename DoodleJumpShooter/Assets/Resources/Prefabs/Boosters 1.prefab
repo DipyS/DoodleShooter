@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb8f4e072997a7b468136c86cccd652c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blood: {fileID: 0}
   slisedSides:
   - {fileID: 2173324229434089078, guid: a1384a2e7a90fa94a8b1b8cc4688c210, type: 3}
   MaxForcePart: 4
@@ -141,7 +142,11 @@ MonoBehaviour:
   killParticles: {fileID: 0}
   health: 1
   armor: 0
+  droppingMoneyCount: 0
+  deathSound: {fileID: 0}
+  activateSound: {fileID: 8300000, guid: 3ab91495eb3277644a43ef1c7f70386d, type: 3}
   platform: {fileID: 838855498118107798, guid: 7c596e95848863c4b885ad303612ea65, type: 3}
+  generateSound: {fileID: 0}
   spawnSpeed: 0.1
   spawnIntervall: 0
   spawnCount: 1

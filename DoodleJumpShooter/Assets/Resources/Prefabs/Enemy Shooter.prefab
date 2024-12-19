@@ -211,6 +211,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 3807610566497216161, guid: 33645040014452747bd7798da756815f, type: 3}
   target: {fileID: 0}
+  shotParticles: {fileID: 591590650703885471, guid: 1a9701eda57aafc4983aa596541fd5de, type: 3}
+  shotSound: {fileID: 0}
   shootIntervall: 3
 --- !u!114 &7770892166294530578
 MonoBehaviour:
@@ -224,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91135f434e7261c4ba9dbc54f2330909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blood: {fileID: 3330411815072013259, guid: 92322b94b63226f46ab7ee1e660f98b6, type: 3}
   slisedSides:
   - {fileID: 5210884772606399845, guid: 87fc15bc76a03f347b5f6ca3563ed21b, type: 3}
   - {fileID: 5001650181574231633, guid: 37c55ea77aa0b2a4cb65523b3f06b6fb, type: 3}
@@ -234,8 +237,10 @@ MonoBehaviour:
   damageParticles: {fileID: 0}
   killParticles: {fileID: 0}
   health: 200
-  armor: 25
+  armor: 0
   droppingMoneyCount: 10
+  deathSound: {fileID: 8300000, guid: 5478fd7526c180441ae22c290b756be6, type: 3}
+  spawnHealthBar: {fileID: 722364644407225600, guid: f066ae32ad05be646af1206bb042939a, type: 3}
 --- !u!1001 &6602418703864761292
 PrefabInstance:
   m_ObjectHideFlags: 0

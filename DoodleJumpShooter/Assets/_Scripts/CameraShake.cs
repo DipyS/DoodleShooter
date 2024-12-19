@@ -14,9 +14,9 @@ public class CameraShake : MonoBehaviour
     } 
     void FixedUpdate()
     {
-        if (duration > 0) {
+        if (duration >= 0) {
             duration -= Time.fixedDeltaTime;
-            if (duration < 0) {
+            if (duration <= 0) {
                 multiChannelPerlin.m_AmplitudeGain = 0;
             }
         }

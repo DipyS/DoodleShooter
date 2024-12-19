@@ -166,3 +166,4 @@ MonoBehaviour:
   followSpeed: -70
   followStartDelay: 1.5
   collectParticles: {fileID: 4395922594774959546, guid: 1f4553f9700d0fe47a4e3dfd8efc8a61, type: 3}
+  pickUpSound: {fileID: 8300000, guid: 2a20afaed01b6ec46ba2d4a25d4d15b4, type: 3}

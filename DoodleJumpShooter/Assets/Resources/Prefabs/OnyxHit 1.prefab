@@ -9816,3 +9816,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explotionRadius: 1.86
   damage: 120
+  explotionSound: {fileID: 8300000, guid: 6af6f3f184afbba4a84e6c014919097b, type: 3}

@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369a433a1d7f166449e4d2d60cf11154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blood: {fileID: 3330411815072013259, guid: 92322b94b63226f46ab7ee1e660f98b6, type: 3}
   slisedSides:
   - {fileID: 2173324229434089078, guid: 5f09adbe99ae24a458dcadf212c46d81, type: 3}
   - {fileID: 2173324229434089078, guid: 1d659f9499eaf204780cd59a2916153c, type: 3}
@@ -143,8 +144,10 @@ MonoBehaviour:
   killParticles: {fileID: 0}
   health: 30
   armor: 0
+  droppingMoneyCount: 1
+  deathSound: {fileID: 8300000, guid: 816447ebd97b33f41bfdc2ec4fd5b7ff, type: 3}
+  spawnHealthBar: {fileID: 722364644407225600, guid: f066ae32ad05be646af1206bb042939a, type: 3}
   booster: {fileID: 3783065326366170786, guid: 8176f6c997e216a43be98dbba8674aff, type: 3}
-  speed: 4
   dashForce: 7
   timeToAttack: 0
 --- !u!50 &100220236570504234

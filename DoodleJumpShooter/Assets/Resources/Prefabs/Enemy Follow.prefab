@@ -240,11 +240,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91135f434e7261c4ba9dbc54f2330909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blood: {fileID: 3330411815072013259, guid: 92322b94b63226f46ab7ee1e660f98b6, type: 3}
   slisedSides:
   - {fileID: 2173324229434089078, guid: 89c87e8b6241ca243ba39716ddf4e654, type: 3}
   - {fileID: 6359660678861454606, guid: e291cea119b0e83419a5e8fdfe641a08, type: 3}
   - {fileID: 8561824354723275853, guid: c0cf2951ae743f240ad749161bfa81d1, type: 3}
-  - {fileID: 4154557527617283698, guid: 0dea8cf32afec2f4c87c931e83fbca79, type: 3}
   - {fileID: 5484153945866577171, guid: 9d7ba96bd7830934b867b82bbd97146d, type: 3}
   MaxForcePart: 4
   MaxRotationForcePart: 10
@@ -253,6 +253,8 @@ MonoBehaviour:
   health: 80
   armor: 3
   droppingMoneyCount: 4
+  deathSound: {fileID: 8300000, guid: 5478fd7526c180441ae22c290b756be6, type: 3}
+  spawnHealthBar: {fileID: 722364644407225600, guid: f066ae32ad05be646af1206bb042939a, type: 3}
 --- !u!58 &6658659442386088739
 CircleCollider2D:
   m_ObjectHideFlags: 0

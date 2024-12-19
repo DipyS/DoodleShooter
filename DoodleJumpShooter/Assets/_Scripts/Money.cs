@@ -7,7 +7,8 @@ public class Money : MonoBehaviour
     [SerializeField] float flyForce = 7;
     [SerializeField] float followSpeed = 3;
     [SerializeField] float followStartDelay = 1.5f;
-    [SerializeField] ParticleSystem collectParticles;
+    [SerializeField,Space(10)] ParticleSystem collectParticles;
+    [SerializeField] AudioClip pickUpSound;
     float timer;
     Rigidbody2D rb;
     void Start()
@@ -32,6 +33,7 @@ public class Money : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.GetComponent<Player>()) {
+            GameManager.Instance.PlaySound(pickUpSound);
             if (collectParticles != null) Instantiate(collectParticles, transform.position, Quaternion.identity);
             Inventory.singleton.Money += moneyAmount;
             Destroy(gameObject);

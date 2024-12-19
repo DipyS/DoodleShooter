@@ -9,7 +9,10 @@ public class DipyBoss : Boss
     [SerializeField] GameObject SecondStageObject;
 
     [SerializeField] ParticleSystem ShotBulletParticles;
-    [SerializeField] ParticleSystem ShotParticles;
+    [SerializeField] ParticleSystem ShotLazerParticles;
+    [SerializeField] AudioClip lazerSound;
+    [SerializeField] AudioClip shotSound;
+    [SerializeField] AudioClip secondStageSound;
 
     [SerializeField] Transform LeftHandShotPoint;
     [SerializeField] Transform RightHandShotPoint;
@@ -46,19 +49,25 @@ public class DipyBoss : Boss
     }
 
     public void LazerLeftHand() {
+        GameManager.Instance.PlaySound(lazerSound);
         var newLazer = Instantiate(Lazer, LeftHandShotPoint.position, LeftHandShotPoint.rotation);
+        Instantiate(ShotBulletParticles, LeftHandShotPoint.position, LeftHandShotPoint.rotation);
         CameraShake.singleton.Shake(0.3f,5);
     }
     public void LazerRightHand() {
+        GameManager.Instance.PlaySound(lazerSound);
         var newLazer = Instantiate(Lazer, RightHandShotPoint.position, RightHandShotPoint.rotation);
+        Instantiate(ShotLazerParticles, RightHandShotPoint.position, RightHandShotPoint.rotation);
         CameraShake.singleton.Shake(0.3f,5);
     }
     public void BulletLeftHand() {
+        GameManager.Instance.PlaySound(shotSound);
         var newBullet = Instantiate(Bullet, LeftHandShotPoint.position, LeftHandShotPoint.rotation);
         Instantiate(ShotBulletParticles, LeftHandShotPoint.position, LeftHandShotPoint.rotation);
         CameraShake.singleton.Shake(0.3f,5);
     }
     public void BulletRightHand() {
+        GameManager.Instance.PlaySound(shotSound);
         var newBullet = Instantiate(Bullet, RightHandShotPoint.position, RightHandShotPoint.rotation);
         Instantiate(ShotBulletParticles, RightHandShotPoint.position, RightHandShotPoint.rotation);
         CameraShake.singleton.Shake(0.3f,5);
@@ -91,6 +100,7 @@ public class DipyBoss : Boss
         
         if (health <= healthBar.maxValue / 100 * 45 && stage == 1) 
         {
+            GameManager.Instance.PlaySound(secondStageSound);
             stage = 2;
             armor += 20;
             anim.SetTrigger("stage2");

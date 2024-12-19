@@ -30,7 +30,6 @@ public class Keys {
             currentCode = value; 
             if (currentCode >= Code.Count) {
                 currentCode = 0;
-                Debug.Log("Succesed CHEAT—CODE ENTRIED!");
                 SuccesAction.Invoke();
             }
         }

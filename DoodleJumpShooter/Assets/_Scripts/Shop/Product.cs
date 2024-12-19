@@ -9,6 +9,7 @@ public class Product : MonoBehaviour
     [SerializeField] protected string productName;
     [SerializeField] protected ParticleSystem buyParticles;
     [SerializeField] TextMeshProUGUI textPrice;
+    [SerializeField] AudioClip buySound;
     [HideInInspector] public bool isSelected;
     protected bool isUnlocked;
     protected TextMeshProUGUI textTip;
@@ -75,7 +76,10 @@ public class Product : MonoBehaviour
         Destroy(textPrice.gameObject);
         if (!Inventory.singleton.CheckUnlocked(productName)) Inventory.singleton.Unlock(productName);
         isUnlocked = true;
-        if (needSelect) Select();
+        if (needSelect) {
+            GameManager.Instance.PlaySound(buySound,2);
+            Select();
+        }
         else textTip.text = "Select";
     }
     virtual public void VisualBuy() {

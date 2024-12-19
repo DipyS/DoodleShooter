@@ -7,6 +7,7 @@ public class MeatBoss : Boss
     [SerializeField] List<GameObject> minion;
     
     [SerializeField] GameObject bullet;
+    [SerializeField] AudioClip shotSound;
 
     [SerializeField] int onDamageMinionSpawnChance = 4;
     [SerializeField] int shootCount;
@@ -27,6 +28,7 @@ public class MeatBoss : Boss
         }
     }
     public void ShootOnPlayer() {
+        GameManager.Instance.PlaySound(shotSound);
         Vector2 differencePos = new Vector2(transform.position.x - GameManager.Instance.player.transform.position.x, transform.position.y - GameManager.Instance.player.transform.position.y);
         float angle = Mathf.Atan2(differencePos.y, differencePos.x) * Mathf.Rad2Deg;
         
@@ -34,6 +36,7 @@ public class MeatBoss : Boss
     }
 
     public void SquashShoot() {
+        GameManager.Instance.PlaySound(shotSound);
         for (int i = 0; i < shootCount; i++) {
             ShootOnPlayer();
         }

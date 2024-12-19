@@ -33,6 +33,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7770892166294530578, guid: d30cf9aa22aaab04da043ace8d20ba1b, type: 3}
+      propertyPath: blood
+      value: 
+      objectReference: {fileID: 3330411815072013259, guid: 1ee99361309d42a41b49f0fd7d37ba9f, type: 3}
+    - target: {fileID: 7770892166294530578, guid: d30cf9aa22aaab04da043ace8d20ba1b, type: 3}
       propertyPath: health
       value: 100
       objectReference: {fileID: 0}
@@ -105,8 +109,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8992885379337858776, guid: d30cf9aa22aaab04da043ace8d20ba1b, type: 3}
+      propertyPath: shotParticles
+      value: 
+      objectReference: {fileID: 591590650703885471, guid: 1a9701eda57aafc4983aa596541fd5de, type: 3}
+    - target: {fileID: 8992885379337858776, guid: d30cf9aa22aaab04da043ace8d20ba1b, type: 3}
       propertyPath: shootIntervall
-      value: 3.6
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6448740166440728114, guid: d30cf9aa22aaab04da043ace8d20ba1b, type: 3}
@@ -138,6 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369a433a1d7f166449e4d2d60cf11154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blood: {fileID: 0}
   slisedSides:
   - {fileID: 2173324229434089078, guid: c4c663b7b522e6745a19e6f50ee29d46, type: 3}
   - {fileID: 2173324229434089078, guid: 6ba2141b59f1dca429c3010a4cdc6681, type: 3}
@@ -148,6 +157,8 @@ MonoBehaviour:
   health: 55
   armor: 0
   droppingMoneyCount: 3
+  deathSound: {fileID: 0}
+  spawnHealthBar: {fileID: 0}
   booster: {fileID: 3783065326366170786, guid: 8176f6c997e216a43be98dbba8674aff, type: 3}
   dashForce: 2
   timeToAttack: 2

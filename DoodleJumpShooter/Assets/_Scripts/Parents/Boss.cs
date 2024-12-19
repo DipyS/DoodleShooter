@@ -16,9 +16,9 @@ public class Boss : Enemy
     protected int stage = 1;
     
     protected Animator anim;
-    protected Slider healthBar;
     protected Boosters booster;
     protected TextMeshProUGUI healthText;
+    protected Rigidbody2D rb;
 
     public virtual void Start()
     {
@@ -31,6 +31,7 @@ public class Boss : Enemy
         healthBar.gameObject.SetActive(true);
         healthText = healthBar.GetComponentInChildren<TextMeshProUGUI>();
         GameObject.Find("BossIcon").GetComponent<Image>().sprite = bossIcon;
+        rb = GetComponent<Rigidbody2D>();
 
         anim = GetComponent<Animator>();
 
@@ -39,7 +40,7 @@ public class Boss : Enemy
         healthText.text = $"{healthBar.maxValue}/{health}"; 
         
         booster = Resources.Load<BoosterPlatformSpawn>("Prefabs/Boosters");
-        Invoke(nameof(SpawnArea),1);
+        Invoke(nameof(SpawnArea),0.7f);
     }
 
     void SpawnArea() => Instantiate(booster,GameManager.Instance.player.transform.position, Quaternion.identity).OnActivate();
@@ -80,15 +81,19 @@ public class Boss : Enemy
     public override void Kill()
     {
         if (!GameManager.Instance.gameIsLoosedOrStoped) {
-            var spawnPos = new Vector2(transform.position.x, transform.position.y - 8);
+            var spawnPos = new Vector2(0, Camera.main.transform.position.y - 6);
             Instantiate(booster, spawnPos, Quaternion.identity).OnActivate();
-            spawnPos = new Vector2(transform.position.x, transform.position.y - 5);
+            spawnPos = new Vector2(0, Camera.main.transform.position.y - 3);
             Instantiate(booster, spawnPos, Quaternion.identity).OnActivate();
-            spawnPos = new Vector2(transform.position.x, transform.position.y - 2);
+            spawnPos = new Vector2(0, Camera.main.transform.position.y + 0);
             Instantiate(booster, spawnPos, Quaternion.identity).OnActivate();
-            spawnPos = new Vector2(transform.position.x, transform.position.y + 1);
+            spawnPos = new Vector2(0, Camera.main.transform.position.y + 3);
             Instantiate(booster, spawnPos, Quaternion.identity).OnActivate();
-            spawnPos = new Vector2(transform.position.x, transform.position.y + 4);
+            spawnPos = new Vector2(0, Camera.main.transform.position.y + 6);
+            Instantiate(booster, spawnPos, Quaternion.identity).OnActivate();
+            spawnPos = new Vector2(0, Camera.main.transform.position.y + 9);
+            Instantiate(booster, spawnPos, Quaternion.identity).OnActivate();
+            spawnPos = new Vector2(0, Camera.main.transform.position.y + 12);
             Instantiate(booster, spawnPos, Quaternion.identity).OnActivate();
         }
         GameManager.canGenerate = true;

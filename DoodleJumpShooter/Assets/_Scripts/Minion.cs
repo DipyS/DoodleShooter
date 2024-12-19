@@ -8,7 +8,7 @@ public class Minion : Enemy
     float timer;
     Rigidbody2D rb;
 
-    void Awake()
+    void Start()
     {
         GameManager.objects.Add(gameObject);
         rb = GetComponent<Rigidbody2D>();

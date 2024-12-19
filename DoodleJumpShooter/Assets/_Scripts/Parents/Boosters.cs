@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Boosters : Entity
 {
+    [SerializeField] AudioClip activateSound;
     Sprite sprite;
     public override void TakeDamage(int damage)
     {
@@ -13,6 +14,7 @@ public class Boosters : Entity
     }
     void OnTriggerEnter2D(Collider2D other)
     {
+        GameManager.Instance.PlaySound(activateSound);
         if (other.GetComponent<Player>()) OnActivate();
     }
     virtual public void OnActivate() {

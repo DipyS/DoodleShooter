@@ -5,7 +5,7 @@ public class PrefabShooter : Weapon
 {
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float intervallToShoot;
-    [SerializeField] int shootCount;
+    public int shootCount;
 
     protected override void Shoot()
     {
@@ -14,6 +14,7 @@ public class PrefabShooter : Weapon
 
     IEnumerator Shooting() {
         for (int i = 0; i < shootCount; i++) {
+            GameManager.Instance.PlaySound(shotSound);
             timerToShoot = float.MaxValue;
             GameObject newBullet = Instantiate(bulletPrefab, FirePoint.position,FirePoint.rotation);
             newBullet.transform.Rotate(0,0,Random.Range(-targetingOffset, targetingOffset));

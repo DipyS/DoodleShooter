@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91135f434e7261c4ba9dbc54f2330909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blood: {fileID: 3330411815072013259, guid: 92322b94b63226f46ab7ee1e660f98b6, type: 3}
   slisedSides:
   - {fileID: 7034576207858369300, guid: d4b872f222c09db4584f6f01ada1d000, type: 3}
   - {fileID: 3673356712151956693, guid: f259d2c9a03259e45b52a4703ef50755, type: 3}
@@ -162,9 +163,11 @@ MonoBehaviour:
   MaxRotationForcePart: 10
   damageParticles: {fileID: 591590650703885471, guid: 609337f987d89f44c912b96d8095b1a9, type: 3}
   killParticles: {fileID: 3706886046613053755, guid: d16e79822a5789b44887e504549d1981, type: 3}
-  health: 40
+  health: 85
   armor: 0
   droppingMoneyCount: 3
+  deathSound: {fileID: 8300000, guid: 5478fd7526c180441ae22c290b756be6, type: 3}
+  spawnHealthBar: {fileID: 722364644407225600, guid: f066ae32ad05be646af1206bb042939a, type: 3}
 --- !u!58 &6658659442386088739
 CircleCollider2D:
   m_ObjectHideFlags: 0

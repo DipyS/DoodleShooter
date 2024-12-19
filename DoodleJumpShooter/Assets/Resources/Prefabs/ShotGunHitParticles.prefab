@@ -1034,7 +1034,7 @@ ParticleSystem:
       repeatInterval: 0.01
       probability: 1
   SizeModule:
-    enabled: 1
+    enabled: 0
     curve:
       serializedVersion: 2
       minMaxState: 1
@@ -1563,7 +1563,10 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+    - sprite: {fileID: -404306912, guid: ee0e19383e3dc2e4b89dcf035681962f, type: 3}
+    - sprite: {fileID: -404306912, guid: ee0e19383e3dc2e4b89dcf035681962f, type: 3}
+    - sprite: {fileID: 732213692, guid: ee0e19383e3dc2e4b89dcf035681962f, type: 3}
+    - sprite: {fileID: -1980272828, guid: ee0e19383e3dc2e4b89dcf035681962f, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:

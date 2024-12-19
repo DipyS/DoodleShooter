@@ -1034,7 +1034,7 @@ ParticleSystem:
       repeatInterval: 0.01
       probability: 1
   SizeModule:
-    enabled: 1
+    enabled: 0
     curve:
       serializedVersion: 2
       minMaxState: 1
@@ -1554,7 +1554,9 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 7482667652216324306, guid: db750325989564987a34393247d883b4, type: 3}
+    - sprite: {fileID: -567577243, guid: ee0e19383e3dc2e4b89dcf035681962f, type: 3}
+    - sprite: {fileID: 284673213, guid: ee0e19383e3dc2e4b89dcf035681962f, type: 3}
+    - sprite: {fileID: -1271415774, guid: ee0e19383e3dc2e4b89dcf035681962f, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -5020,6 +5022,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explotionRadius: 2.5
   damage: 350
+  explotionSound: {fileID: 8300000, guid: f3e929c2fa1ab344da03c419a4d350f6, type: 3}
 --- !u!114 &4831886761417242009
 MonoBehaviour:
   m_ObjectHideFlags: 0

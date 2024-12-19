@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
+    public ParticleSystem blood;
     [SerializeField] protected List<Rigidbody2D> slisedSides;
 
     [SerializeField] protected float MaxForcePart = 4;
@@ -13,7 +14,7 @@ public class Entity : MonoBehaviour
     [SerializeField,Space(5)] protected ParticleSystem damageParticles;
     [SerializeField] protected ParticleSystem killParticles;
 
-    [SerializeField,Space(5)] protected int health = 1;
+    [Space(5)] public int health = 1;
     [SerializeField] protected int armor;
     [SerializeField,Space(10)] protected int droppingMoneyCount;
 
@@ -23,6 +24,7 @@ public class Entity : MonoBehaviour
     protected Material blink;
     protected GameObject floatingText;
     protected GameObject floatingCrit;
+    [SerializeField] AudioClip deathSound;
 
     void Start()
     {
@@ -67,6 +69,7 @@ public class Entity : MonoBehaviour
     }
 
     public virtual void Kill() {
+        GameManager.Instance.PlaySound(deathSound);
         DropMoney();
         DropParts();
         CameraShake.singleton.Shake(0.3f,4);
@@ -93,9 +96,16 @@ public class Entity : MonoBehaviour
         foreach (var p in slisedSides)
         {
             Rigidbody2D newPart = Instantiate(p, transform.position,Quaternion.identity);
-            newPart.velocity = new Vector2(Random.Range(-MaxForcePart,MaxForcePart),MaxForcePart);
+            
+            Vector3 difference = transform.position - GameManager.Instance.player.transform.position;
+            float angle = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+            newPart.transform.rotation = Quaternion.Euler(0,0,angle + Random.Range(-20f,21f));
+
+            newPart.velocity = newPart.transform.right * Random.Range(MaxForcePart, MaxForcePart + 10f);
             newPart.AddTorque(Random.Range(-MaxRotationForcePart,MaxRotationForcePart));
             GameManager.objects.Add(newPart.gameObject);
+
+            if (blood != null) Instantiate(blood, newPart.transform);
             Destroy(newPart.gameObject,4);
         }
     }

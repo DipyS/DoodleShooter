@@ -116,8 +116,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
-      minScalar: 0.2
+      scalar: 0.2
+      minScalar: 0.55
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -222,8 +222,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.7735849, g: 0.29000044, b: 0.105820596, a: 1}
-      maxColor: {r: 0.78431374, g: 0.76243985, b: 0.06274509, a: 1}
+      minColor: {r: 1, g: 0.2764706, b: 0, a: 1}
+      maxColor: {r: 1, g: 0.9673914, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1034,7 +1034,7 @@ ParticleSystem:
       repeatInterval: 0.01
       probability: 1
   SizeModule:
-    enabled: 1
+    enabled: 0
     curve:
       serializedVersion: 2
       minMaxState: 1
@@ -1563,11 +1563,14 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+    - sprite: {fileID: -404306912, guid: ee0e19383e3dc2e4b89dcf035681962f, type: 3}
+    - sprite: {fileID: -404306912, guid: ee0e19383e3dc2e4b89dcf035681962f, type: 3}
+    - sprite: {fileID: 732213692, guid: ee0e19383e3dc2e4b89dcf035681962f, type: 3}
+    - sprite: {fileID: -1980272828, guid: ee0e19383e3dc2e4b89dcf035681962f, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
-    enabled: 0
+    enabled: 1
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -2048,7 +2051,7 @@ ParticleSystem:
     radial:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.37
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -2100,7 +2103,7 @@ ParticleSystem:
         m_RotationOrder: 4
     speedModifier:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 1
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -2116,8 +2119,8 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1
-          value: 1
+          time: 0.56748176
+          value: 0.015385821
           inSlope: 0
           outSlope: 0
           tangentMode: 0

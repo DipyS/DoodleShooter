@@ -6,6 +6,9 @@ public class Player : MonoBehaviour
 {
     [SerializeField] float speed = 4;
     [SerializeField] float jumpForce = 8;
+    [SerializeField] float DashForce = 3;
+    [SerializeField] float DashDuration = 0.3f;
+    [SerializeField] float DashIntervall = 1.2f;
     [SerializeField] float capSpeed = 5;
     [SerializeField] float capDuration = 2.2f;
     [SerializeField] float rocketSpeed = 7;
@@ -13,15 +16,22 @@ public class Player : MonoBehaviour
 
     [SerializeField] GameObject virtualCamera;
     [SerializeField] ParticleSystem jumpParticles;
+    [SerializeField] ParticleSystem dashParticles;
 
     [SerializeField] Image fill;
     [SerializeField] Image fillChildren;
 
     [SerializeField] VariableJoystick movementJoystick;
 
+    [SerializeField] AudioClip jumpSound;
+    [SerializeField] AudioClip rocketSound;
+    [SerializeField] AudioClip capSound;
+    [SerializeField] AudioClip dashSound;
+    [SerializeField] AudioClip springSound;
     [HideInInspector] public Rigidbody2D rb;
 
     float movement;
+    float dashTimer;
 
     public bool Undieing {get; private set;}  
     bool facingRight = true;
@@ -49,6 +59,40 @@ public class Player : MonoBehaviour
     void Update()
     {
         Movement();
+        dashTimer -= Time.deltaTime;
+        if (Input.GetKeyUp(KeyCode.Space)) {
+                VirtualDash();
+            }
+    }
+
+    public void VirtualDash() {
+        if (dashTimer <= 0 && !Undieing) {
+            anim.SetTrigger("Dash");
+            StartCoroutine(Dashing());
+            dashTimer = DashIntervall;
+        }
+    }
+
+    IEnumerator Dashing() {
+        GameManager.Instance.PlaySound(dashSound);
+        Undieing = true;
+        if (facingRight) {
+            rb.velocity = new Vector2(DashForce, rb.velocity.y);
+        } else {
+            rb.velocity = new Vector2(-DashForce, rb.velocity.y);
+        }
+
+        Instantiate(dashParticles,transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(DashDuration/2);
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+        Instantiate(dashParticles,transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(DashDuration/2);
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+        Instantiate(dashParticles,transform.position, Quaternion.identity);
+        dashTimer = DashIntervall;
+
+        rb.velocity = new Vector2(0, 0);
+        Undieing = false;
     }
     void Movement() {
         if (Application.isMobilePlatform) {
@@ -58,9 +102,11 @@ public class Player : MonoBehaviour
             movement = Input.GetAxis("Horizontal");
         } 
         if (movement > 0 && !facingRight || movement < 0 && facingRight) Flip();
-        rb.velocity = new Vector2(speed * movement, rb.velocity.y);
+        if (rb.velocity.x <= speed && rb.velocity.x >= -speed)
+            rb.velocity = new Vector2(speed * movement, rb.velocity.y);
     }
     void Jump() {
+        GameManager.Instance.PlaySound(jumpSound);
         if (movement > 0) anim.SetTrigger("jump2");
         else if (movement < 0) anim.SetTrigger("jump1");
 
@@ -90,6 +136,7 @@ public class Player : MonoBehaviour
         }
         if (rb.velocity.y <= 0) {
             if (other.CompareTag("Spring")) {
+                GameManager.Instance.PlaySound(springSound,2);
                 other.GetComponent<Animator>().SetTrigger("Activate");
                 StartCoroutine(TurnOnUndieing(2f));
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce * 1.7f);
@@ -99,11 +146,13 @@ public class Player : MonoBehaviour
         }
         if (!aksEnabled) {
             if (other.CompareTag("Cap")) {
+                GameManager.Instance.PlaySound(capSound,5);
                 flyProcess = StartCoroutine(Fly(capDuration, capSpeed));
                 StartCoroutine(DressAks(capDuration, cap));
                 StartCoroutine(TurnOnUndieing(capDuration));
             Destroy(other.gameObject);
             } else if (other.CompareTag("Rocket")) {
+                GameManager.Instance.PlaySound(rocketSound,5);
                 flyProcess = StartCoroutine(Fly(rocketDuration, rocketSpeed));
                 StartCoroutine(DressAks(rocketDuration, rocket));
                 StartCoroutine(TurnOnUndieing(rocketDuration));

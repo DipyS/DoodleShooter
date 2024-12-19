@@ -5,6 +5,7 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField] public bool automaticShooter;
     [SerializeField] bool enableLazer;
+    [SerializeField] bool enableCameraShake = true;
 
     [SerializeField] public float ShootIntervall = 0.7f;
     [SerializeField] public float targetingOffset;
@@ -12,6 +13,7 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] protected Transform FirePoint;
     [SerializeField] protected Rigidbody2D Gilze;
+    [SerializeField] protected AudioClip shotSound;
 
     //СОрян чуваки отвлекся!
     [SerializeField] FixedJoystick ShotJoystick;
@@ -93,8 +95,9 @@ public class Weapon : MonoBehaviour
         Vector2 knockbackDirection = new Vector2(0,transform.position.y - shotDirection.y);
         
         player.rb.AddForce(new Vector2(0, knockbackDirection.normalized.y * knockbackForce), ForceMode2D.Impulse);
-        CameraShake.singleton.Shake(0.3f,5);
+        if (enableCameraShake) CameraShake.singleton.Shake(0.1f,5);
         timerToShoot = ShootIntervall;
+        GameManager.Instance.PlaySound(shotSound);
         Shoot();
     }
     void RotateGun(Vector2 RotateDirection) {
