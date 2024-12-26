@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1964083198687426701}
   - component: {fileID: 764763385839551204}
-  - component: {fileID: 1969261655635280957}
+  - component: {fileID: 2348715704230747374}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 357434261
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: bde29bbeabc54704dae8e9c853cb2609, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &1969261655635280957
+--- !u!95 &2348715704230747374
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -118,8 +118,9 @@ GameObject:
   - component: {fileID: 5463274948256358047}
   - component: {fileID: 6658659442386088739}
   - component: {fileID: -8366213493090050155}
+  - component: {fileID: 5004983259977173559}
   m_Layer: 0
-  m_Name: Enemy Move Horizontal
+  m_Name: Orange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -169,6 +170,8 @@ MonoBehaviour:
   droppingMoneyCount: 3
   deathSound: {fileID: 8300000, guid: 5478fd7526c180441ae22c290b756be6, type: 3}
   spawnHealthBar: {fileID: 722364644407225600, guid: f066ae32ad05be646af1206bb042939a, type: 3}
+  contanctDamage: 1
+  damage: 1
 --- !u!58 &6658659442386088739
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -217,6 +220,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
+--- !u!95 &5004983259977173559
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8477839839132186209}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6969bb1d4b1a9674f97fe18737fed28d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &6602418703864761292
 PrefabInstance:
   m_ObjectHideFlags: 0

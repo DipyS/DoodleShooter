@@ -1,9 +1,16 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    private int health;
+    public int Health {
+        get {return health;}
+        private set {health = value; VisualizeHealth();}
+    }
+    [SerializeField] int startHealth = 3;
     [SerializeField] float speed = 4;
     [SerializeField] float jumpForce = 8;
     [SerializeField] float DashForce = 3;
@@ -12,23 +19,27 @@ public class Player : MonoBehaviour
     [SerializeField] float capSpeed = 5;
     [SerializeField] float capDuration = 2.2f;
     [SerializeField] float rocketSpeed = 7;
-    [SerializeField] float rocketDuration = 3.5f;   
+    [SerializeField, Space(10)] float rocketDuration = 3.5f;   
 
     [SerializeField] GameObject virtualCamera;
     [SerializeField] ParticleSystem jumpParticles;
     [SerializeField] ParticleSystem dashParticles;
+    [SerializeField] ParticleSystem damageParticles;
 
-    [SerializeField] Image fill;
+    [SerializeField, Space(10)] Image fill;
     [SerializeField] Image fillChildren;
-
     [SerializeField] VariableJoystick movementJoystick;
 
-    [SerializeField] AudioClip jumpSound;
+    [SerializeField, Space(10)] AudioClip jumpSound;
     [SerializeField] AudioClip rocketSound;
     [SerializeField] AudioClip capSound;
     [SerializeField] AudioClip dashSound;
     [SerializeField] AudioClip springSound;
+
+    [SerializeField, Space(10)] HorizontalLayoutGroup group;
     [HideInInspector] public Rigidbody2D rb;
+    [SerializeField] Image heart;
+    List<GameObject> hearts = new List<GameObject>();
 
     float movement;
     float dashTimer;
@@ -42,9 +53,11 @@ public class Player : MonoBehaviour
     Coroutine flyProcess;
     Animator anim;
     SpriteRenderer spRenderer;
+    Coroutine undiyng;
 
     void Start()
     {
+        Health = startHealth;
         virtualCamera.GetComponent<CameraController>().follow = this;
         rb = GetComponent<Rigidbody2D>();
         cap = Resources.Load<GameObject>("Prefabs/A_Cap");
@@ -66,7 +79,7 @@ public class Player : MonoBehaviour
     }
 
     public void VirtualDash() {
-        if (dashTimer <= 0 && !Undieing) {
+        if (dashTimer <= 0 && !aksEnabled) {
             anim.SetTrigger("Dash");
             StartCoroutine(Dashing());
             dashTimer = DashIntervall;
@@ -141,7 +154,7 @@ public class Player : MonoBehaviour
                 StartCoroutine(TurnOnUndieing(2f));
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce * 1.7f);
             } else if (other.CompareTag("Spike")) {
-                GameManager.Instance.Lose();
+                TakeDamage(1);
             }
         }
         if (!aksEnabled) {
@@ -207,7 +220,48 @@ public class Player : MonoBehaviour
         if (flyProcess != null) StopCoroutine(flyProcess);
     }
 
+    public void TakeDamage(int damage) {
+        if (Undieing) return;
+        if (damage < 0) damage = 0;
+        CameraShake.singleton.Shake(0.2f, 6f);
+        Instantiate(damageParticles, transform.position, Quaternion.identity);
+        Health -= damage;
+        StartCoroutine(TurnOnUndieing(3));
+
+        if (Health <= 0) {
+            GameManager.Instance.Lose();
+        }
+    }
+    public void Regenerate(int health) {
+        if (health < 0) health = 0;
+        Instantiate(damageParticles, transform.position, Quaternion.identity);
+        Health += health;
+    }
+
+    void VisualizeHealth() {
+        if (Health < 0) Health = 0;
+        if (Health > hearts.Count) {
+            while(Health > hearts.Count) {
+                var newHeart = Instantiate(heart, group.transform);
+                hearts.Add(newHeart.gameObject);
+            }
+        } 
+        else if (Health < hearts.Count) {
+            List<GameObject> deletingObjects = new List<GameObject>();
+            
+            for (int i = 0; i < hearts.Count; i++) {
+                if (i > Health - 1) { Destroy(hearts[i].gameObject); deletingObjects.Add(hearts[i]); }
+            }
+
+            foreach (var item in deletingObjects)
+            {
+                hearts.Remove(item);
+            }
+        }
+    }
+
     void OnRestartGame() {
+        Health = startHealth;
         StopFly();
     }
 }

@@ -196,7 +196,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &8992885379337858776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +241,8 @@ MonoBehaviour:
   droppingMoneyCount: 10
   deathSound: {fileID: 8300000, guid: 5478fd7526c180441ae22c290b756be6, type: 3}
   spawnHealthBar: {fileID: 722364644407225600, guid: f066ae32ad05be646af1206bb042939a, type: 3}
+  contanctDamage: 1
+  damage: 1
 --- !u!1001 &6602418703864761292
 PrefabInstance:
   m_ObjectHideFlags: 0

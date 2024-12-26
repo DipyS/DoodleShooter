@@ -14,7 +14,7 @@ public class MeatBoss : Boss
 
     [SerializeField] float OffsetAngle;
 
-    public override void Start()
+    public new void Start()
     {
         base.Start();
     }

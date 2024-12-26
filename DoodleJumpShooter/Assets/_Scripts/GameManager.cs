@@ -58,14 +58,17 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         UpdateScores();
-        if (player.transform.position.y >= spawnHeight) {
-            if (canGenerate) onGenerate.Invoke();
+        if (player.transform.position.y >= spawnHeight && canGenerate) {
+            onGenerate.Invoke();
             spawnHeight = player.transform.position.y + platformStep;
         }
         
-        DestroyObjectsOutScreen();
+        if (canGenerate) DestroyObjectsOutScreen();
         if (canLose && player.transform.position.y < transform.position.y - height) {
-            Lose();
+            if (player.Health > 0) {
+                player.rb.velocity = new Vector2(player.rb.velocity.x, 22);
+                player.TakeDamage(1);
+            }
         }
     }
 
@@ -82,6 +85,7 @@ public class GameManager : MonoBehaviour
         canLose = false;
         Invoke(nameof(CanLose),0.15f);
         LosePanel.SetActive(false);
+        YandexGame.FullscreenShow();
     }
     public void CanLose() {
         canLose = true;

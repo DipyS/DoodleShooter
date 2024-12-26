@@ -11,6 +11,8 @@ public class Boss : Enemy
 
     [SerializeField] protected float minTimer = 1;
     [SerializeField] protected float maxTimer = 3;
+    [SerializeField] protected AudioClip secondStageSound;
+    [SerializeField] protected GameObject SecondStageObject;
 
     protected float timerAttack;
     protected int stage = 1;
@@ -20,7 +22,7 @@ public class Boss : Enemy
     protected TextMeshProUGUI healthText;
     protected Rigidbody2D rb;
 
-    public virtual void Start()
+    public void Start()
     {
         GameManager.onBossSpawn.Invoke();
         timerAttack = Random.Range(minTimer,maxTimer);
@@ -67,12 +69,18 @@ public class Boss : Enemy
     
         if (floatingText != null) Instantiate(floatingText, new Vector2(transform.position.x + Random.Range(-0.5f,0.5f),transform.position.y + Random.Range(-0.5f,0.5f)), Quaternion.identity).GetComponentInChildren<TextMeshPro>().text = Mathf.Round(newDamage).ToString();
 
+        if (Random.Range(1,11) <= 2) {
+            newDamage *= 2;
+            if (floatingCrit != null) Instantiate(floatingCrit, new Vector2(transform.position.x + Random.Range(-0.5f,0.5f), transform.position.y +Random.Range(-0.5f,0.5f)), Quaternion.identity).GetComponentInChildren<TextMeshPro>().text = Mathf.Round(newDamage).ToString() + "!";
+        } else if (floatingText != null) Instantiate(floatingText, new Vector2(transform.position.x + Random.Range(-0.5f,0.5f), transform.position.y +Random.Range(-0.5f,0.5f)), Quaternion.identity).GetComponentInChildren<TextMeshPro>().text = Mathf.Round(newDamage).ToString();
+
+
         health -= (int)newDamage;
         if (health <= 0) {
             health = 0; 
             KillAnim();
         }
-        healthBar.value = health;
+        if(healthBar != null) healthBar.value = health;
         healthText.text = $"{healthBar.maxValue}/{health}"; 
     }
     public virtual void KillAnim() {
@@ -94,6 +102,10 @@ public class Boss : Enemy
             spawnPos = new Vector2(0, Camera.main.transform.position.y + 9);
             Instantiate(booster, spawnPos, Quaternion.identity).OnActivate();
             spawnPos = new Vector2(0, Camera.main.transform.position.y + 12);
+            Instantiate(booster, spawnPos, Quaternion.identity).OnActivate();
+            spawnPos = new Vector2(0, Camera.main.transform.position.y + 15);
+            Instantiate(booster, spawnPos, Quaternion.identity).OnActivate();
+            spawnPos = new Vector2(0, Camera.main.transform.position.y + 18);
             Instantiate(booster, spawnPos, Quaternion.identity).OnActivate();
         }
         GameManager.canGenerate = true;

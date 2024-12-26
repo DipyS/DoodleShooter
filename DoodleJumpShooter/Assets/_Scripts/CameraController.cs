@@ -20,18 +20,16 @@ public class CameraController : MonoBehaviour
         Vector3 followPos = transform.position;
         if (secondFollow != null) {
             if (motionProgress < 1) motionProgress += motionSpeed * Time.deltaTime;
-
+            motionProgress = Mathf.Clamp01(motionProgress);
             followPos = new Vector3((follow.transform.position.x + secondFollow.position.x) / 2, (follow.transform.position.y + secondFollow.position.y) / 2, -10);
-            mainCamera.m_Lens.OrthographicSize = Vector2.Distance(follow.transform.position, secondFollow.transform.position) * size;
-
+            
             transform.position = Vector3.Lerp(new Vector3(0, follow.transform.position.y, -10), followPos, motionProgress);
             
             previousSecondFollow = true;
         } 
         else if (follow.transform.position.y > transform.position.y) {
             if (motionProgress > 0) motionProgress -= motionSpeed * Time.deltaTime;
-
-            mainCamera.m_Lens.OrthographicSize = 7.44f;
+            motionProgress = Mathf.Clamp01(motionProgress);
             transform.position = Vector3.Lerp(new Vector3(0, follow.transform.position.y, -10), followPos, motionProgress);
 
             previousSecondFollow = false;

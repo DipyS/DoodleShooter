@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff65dea57677e96498c5bbfebc79c036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blood: {fileID: 0}
   slisedSides: []
   MaxForcePart: 4
   MaxRotationForcePart: 10
@@ -133,9 +134,12 @@ MonoBehaviour:
   killParticles: {fileID: 4395922594774959546, guid: 320a18dc4e4a48d4fbe99710356f6b86, type: 3}
   health: 1
   armor: 0
+  droppingMoneyCount: 0
+  deathSound: {fileID: 0}
   speed: -5
   lifeTime: 5
   particle: {fileID: 0}
+  damage: 1
 --- !u!58 &1337123166792358418
 CircleCollider2D:
   m_ObjectHideFlags: 0

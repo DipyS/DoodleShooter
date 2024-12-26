@@ -282,7 +282,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &7446144298319293919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,5 +364,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 0}
-  offset: {x: 0.5, y: 1.5}
+  offset: {x: 0.5, y: 0.5}
   healthBar: {fileID: 0}

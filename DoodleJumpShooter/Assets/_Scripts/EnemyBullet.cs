@@ -5,6 +5,7 @@ public class EnemyBullet : Entity
     [SerializeField] float speed;
     [SerializeField] float lifeTime;
     [SerializeField] ParticleSystem particle;
+    [SerializeField] int damage;
     void Start()
     {
         GameManager.objects.Add(gameObject);
@@ -21,7 +22,7 @@ public class EnemyBullet : Entity
     {
         if (other.GetComponent<Player>() && !other.gameObject.GetComponent<Player>().Undieing) {
             DestroyBullet();
-            GameManager.Instance.Lose();
+            GameManager.Instance.player.TakeDamage(damage);
         }
     }
 

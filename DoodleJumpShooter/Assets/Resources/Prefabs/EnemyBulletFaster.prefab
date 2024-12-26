@@ -137,9 +137,10 @@ MonoBehaviour:
   armor: 0
   droppingMoneyCount: 0
   deathSound: {fileID: 0}
-  speed: -4.53
+  speed: -10
   lifeTime: 5
   particle: {fileID: 0}
+  damage: 1
 --- !u!70 &2741162195107661202
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

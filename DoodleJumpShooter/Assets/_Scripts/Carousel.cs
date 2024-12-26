@@ -10,15 +10,19 @@ public class Carousel : MonoBehaviour
     [SerializeField] float ExpanshionSpeed = 0.05f;
     [SerializeField] float timer;
     [SerializeField] float YOffset;
+    [SerializeField] protected float sinMultiplier = 1;
+    [SerializeField] protected float cosMultiplier = 1;
+    [SerializeField] protected float sinAdd;
+    [SerializeField] protected float cosAdd;
     float Expanshion;
     float Radius = 0;
 
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         Expanshion += ExpanshionSpeed;
     }
 
-    void Update()
+    public void Update()
     {
         var removeObjects = new List<GameObject>();
         foreach (var obj in carouselObjects) {
@@ -37,8 +41,8 @@ public class Carousel : MonoBehaviour
         float offset = 360 / carouselObjects.Count;
         for (int i = 0; i < carouselObjects.Count; i++) {
             angle += offset;
-            carouselObjects[i].transform.position = new Vector2(Mathf.Sin((angle + timer) * Mathf.Deg2Rad) * 
-            Radius + transform.position.x, Mathf.Cos((angle + timer) * Mathf.Deg2Rad) * Radius + transform.position.y + YOffset);
+            carouselObjects[i].transform.position = new Vector2(Mathf.Sin((angle + timer + sinAdd) * Mathf.Deg2Rad * sinMultiplier) * 
+            Radius + transform.position.x, Mathf.Cos((angle + timer + cosAdd) * Mathf.Deg2Rad * cosMultiplier) * Radius + transform.position.y + YOffset);
         }
     }
 }

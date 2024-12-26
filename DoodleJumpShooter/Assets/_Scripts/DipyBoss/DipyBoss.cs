@@ -5,14 +5,11 @@ public class DipyBoss : Boss
 {
     [SerializeField, Space( 8)] GameObject Lazer;
     [SerializeField] GameObject Bullet;
-    [SerializeField] GameObject Minion;
-    [SerializeField] GameObject SecondStageObject;
 
     [SerializeField] ParticleSystem ShotBulletParticles;
     [SerializeField] ParticleSystem ShotLazerParticles;
     [SerializeField] AudioClip lazerSound;
     [SerializeField] AudioClip shotSound;
-    [SerializeField] AudioClip secondStageSound;
 
     [SerializeField] Transform LeftHandShotPoint;
     [SerializeField] Transform RightHandShotPoint;
@@ -23,7 +20,7 @@ public class DipyBoss : Boss
         get { return new Vector2(Body.position.x - transform.position.x, Body.position.y - transform.position.y);}
     }
 
-    public override void Start()
+    public new void Start()
     {
         base.Start();
         boxCollider2D = GetComponent<BoxCollider2D>();
@@ -100,7 +97,7 @@ public class DipyBoss : Boss
         
         if (health <= healthBar.maxValue / 100 * 45 && stage == 1) 
         {
-            GameManager.Instance.PlaySound(secondStageSound);
+            if (secondStageSound != null) GameManager.Instance.PlaySound(secondStageSound);
             stage = 2;
             armor += 20;
             anim.SetTrigger("stage2");

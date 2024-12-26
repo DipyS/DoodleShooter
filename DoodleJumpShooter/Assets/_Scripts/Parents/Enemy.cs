@@ -5,6 +5,7 @@ public class Enemy : Entity
 {
     [SerializeField] EnemiesHealthBar spawnHealthBar;
     [SerializeField] protected bool contanctDamage = true;
+    [SerializeField] protected int damage = 1;
     protected Slider healthBar;
 
     void Start()
@@ -15,7 +16,7 @@ public class Enemy : Entity
     void OnTriggerEnter2D(Collider2D other)
     {
         if (contanctDamage && other.gameObject.GetComponent<Player>() && !other.gameObject.GetComponent<Player>().Undieing) {
-            GameManager.Instance.Lose();
+            GameManager.Instance.player.TakeDamage(damage);
         }
     }
 }

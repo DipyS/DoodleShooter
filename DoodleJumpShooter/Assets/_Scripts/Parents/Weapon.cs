@@ -52,7 +52,7 @@ public class Weapon : MonoBehaviour
             //На телефоне
             if (Application.isMobilePlatform) {
                 
-                if (ShotJoystick.Direction.x >= 0.5 || ShotJoystick.Direction.x <= -0.5 || ShotJoystick.Direction.y >= 0.5 || ShotJoystick.Direction.y <= -0.5) {
+                if (ShotJoystick.Direction.x >= 0.75 || ShotJoystick.Direction.x <= -0.75 || ShotJoystick.Direction.y >= 0.75 || ShotJoystick.Direction.y <= -0.75) {
                     VirtualShoot(mousePos);
                 }
             } 
@@ -103,7 +103,7 @@ public class Weapon : MonoBehaviour
     void RotateGun(Vector2 RotateDirection) {
         Vector2 differencePos = new Vector2(transform.position.x - RotateDirection.x, transform.position.y - RotateDirection.y);
         float angle = Mathf.Atan2(differencePos.y, differencePos.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0,0,angle + 180);
+        if (angle != 0) transform.rotation = Quaternion.Euler(0,0,angle + 180);
 
         if (RotateDirection.x > transform.position.x) spriteRenderer.flipY = false;
         else if (RotateDirection.x < transform.position.x) spriteRenderer.flipY = true; 
