@@ -20,7 +20,7 @@ public class EnemyBullet : Entity
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponent<Player>() && !other.gameObject.GetComponent<Player>().Undieing) {
+        if (other.GetComponent<Player>()) {
             DestroyBullet();
             GameManager.Instance.player.TakeDamage(damage);
         }

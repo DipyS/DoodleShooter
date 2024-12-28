@@ -23,6 +23,7 @@ namespace YG
         
         public string[] UnlockedItems = new string[] {"Pistol"};
         public int HighScores;
+        public int StartHealth = 3;
         public int Money;
 
         public SavesYG()

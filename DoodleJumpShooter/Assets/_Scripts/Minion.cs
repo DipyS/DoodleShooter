@@ -35,7 +35,7 @@ public class Minion : Enemy
 
     public override void Kill()
     {
-        GameManager.objects.Add(Instantiate(booster, transform.position, Quaternion.identity));
+        if (booster != null) GameManager.objects.Add(Instantiate(booster, transform.position, Quaternion.identity));
         base.Kill();
     }
 }

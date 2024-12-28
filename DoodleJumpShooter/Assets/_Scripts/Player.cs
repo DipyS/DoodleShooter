@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class Player : MonoBehaviour
 {
@@ -10,12 +12,13 @@ public class Player : MonoBehaviour
         get {return health;}
         private set {health = value; VisualizeHealth();}
     }
-    [SerializeField] int startHealth = 3;
+    public int startHealth = 3;
     [SerializeField] float speed = 4;
     [SerializeField] float jumpForce = 8;
     [SerializeField] float DashForce = 3;
     [SerializeField] float DashDuration = 0.3f;
     [SerializeField] float DashIntervall = 1.2f;
+    [SerializeField] float ShealdIntervall = 20;
     [SerializeField] float capSpeed = 5;
     [SerializeField] float capDuration = 2.2f;
     [SerializeField] float rocketSpeed = 7;
@@ -25,8 +28,11 @@ public class Player : MonoBehaviour
     [SerializeField] ParticleSystem jumpParticles;
     [SerializeField] ParticleSystem dashParticles;
     [SerializeField] ParticleSystem damageParticles;
+    [SerializeField] ParticleSystem shealdDamageParticles;
 
     [SerializeField, Space(10)] Image fill;
+    [SerializeField] Image heart;
+    [SerializeField] Image shealdFill;
     [SerializeField] Image fillChildren;
     [SerializeField] VariableJoystick movementJoystick;
 
@@ -35,29 +41,44 @@ public class Player : MonoBehaviour
     [SerializeField] AudioClip capSound;
     [SerializeField] AudioClip dashSound;
     [SerializeField] AudioClip springSound;
+    [SerializeField] Sprite sheadHearts;
 
     [SerializeField, Space(10)] HorizontalLayoutGroup group;
     [HideInInspector] public Rigidbody2D rb;
-    [SerializeField] Image heart;
     List<GameObject> hearts = new List<GameObject>();
 
     float movement;
-    float dashTimer;
+    float actTimer;
 
     public bool Undieing {get; private set;}  
-    bool facingRight = true;
+    bool facingRight = true;  
+    bool isSheald;
     bool aksEnabled;
 
     GameObject cap;
     GameObject rocket;
     Coroutine flyProcess;
+    Coroutine shealdProcess;
+    Coroutine undyingProcess;
     Animator anim;
     SpriteRenderer spRenderer;
-    Coroutine undiyng;
+
+    public enum ActType
+    {
+        None,
+        Dash,
+        Sheald,
+        SecondJump
+    }
+
+    public ActType actType = ActType.None;
+    
 
     void Start()
     {
+        actType = ActType.Dash;
         Health = startHealth;
+        shealdFill.gameObject.SetActive(false);
         virtualCamera.GetComponent<CameraController>().follow = this;
         rb = GetComponent<Rigidbody2D>();
         cap = Resources.Load<GameObject>("Prefabs/A_Cap");
@@ -72,17 +93,36 @@ public class Player : MonoBehaviour
     void Update()
     {
         Movement();
-        dashTimer -= Time.deltaTime;
+        actTimer -= Time.deltaTime;
         if (Input.GetKeyUp(KeyCode.Space)) {
-                VirtualDash();
-            }
+            ActButton();
+        }
+    }
+
+    public void ActButton() {
+        if (actTimer > 0) return;
+        switch (actType)
+        {
+            case ActType.Dash:
+                if (!aksEnabled) 
+                {
+                    anim.SetTrigger("Dash");
+                    StartCoroutine(Dashing());
+                    actTimer = DashIntervall;
+                }
+            break;
+            case ActType.Sheald:
+                TurnOnSheald(10);
+                actTimer = ShealdIntervall;
+            break;
+        }
     }
 
     public void VirtualDash() {
-        if (dashTimer <= 0 && !aksEnabled) {
+        if (actTimer <= 0 && !aksEnabled) {
             anim.SetTrigger("Dash");
             StartCoroutine(Dashing());
-            dashTimer = DashIntervall;
+            actTimer = DashIntervall;
         }
     }
 
@@ -102,7 +142,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(DashDuration/2);
         rb.velocity = new Vector2(rb.velocity.x, 0);
         Instantiate(dashParticles,transform.position, Quaternion.identity);
-        dashTimer = DashIntervall;
+        actTimer = DashIntervall;
 
         rb.velocity = new Vector2(0, 0);
         Undieing = false;
@@ -115,7 +155,7 @@ public class Player : MonoBehaviour
             movement = Input.GetAxis("Horizontal");
         } 
         if (movement > 0 && !facingRight || movement < 0 && facingRight) Flip();
-        if (rb.velocity.x <= speed && rb.velocity.x >= -speed)
+        if (rb.velocity.x <= speed + 1 && rb.velocity.x >= -speed - 1)
             rb.velocity = new Vector2(speed * movement, rb.velocity.y);
     }
     void Jump() {
@@ -151,7 +191,7 @@ public class Player : MonoBehaviour
             if (other.CompareTag("Spring")) {
                 GameManager.Instance.PlaySound(springSound,2);
                 other.GetComponent<Animator>().SetTrigger("Activate");
-                StartCoroutine(TurnOnUndieing(2f));
+                TurnOnUndieing(2f);
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce * 1.7f);
             } else if (other.CompareTag("Spike")) {
                 TakeDamage(1);
@@ -162,13 +202,13 @@ public class Player : MonoBehaviour
                 GameManager.Instance.PlaySound(capSound,5);
                 flyProcess = StartCoroutine(Fly(capDuration, capSpeed));
                 StartCoroutine(DressAks(capDuration, cap));
-                StartCoroutine(TurnOnUndieing(capDuration));
+                TurnOnUndieing(capDuration);
             Destroy(other.gameObject);
             } else if (other.CompareTag("Rocket")) {
                 GameManager.Instance.PlaySound(rocketSound,5);
                 flyProcess = StartCoroutine(Fly(rocketDuration, rocketSpeed));
                 StartCoroutine(DressAks(rocketDuration, rocket));
-                StartCoroutine(TurnOnUndieing(rocketDuration));
+                TurnOnUndieing(rocketDuration);
             Destroy(other.gameObject);
             }
         }
@@ -209,7 +249,13 @@ public class Player : MonoBehaviour
         aksEnabled = false;
         Destroy(aksessuar);
     }
-    IEnumerator TurnOnUndieing(float duration) {
+    void TurnOnUndieing(float duration) {
+        if (undyingProcess != null) StopCoroutine(undyingProcess);
+
+        StartCoroutine(ITurnOnUndieing(duration));
+    }
+
+    IEnumerator ITurnOnUndieing(float duration) {
         Undieing = true;
         yield return new WaitForSeconds(duration);
         Undieing = false;
@@ -224,13 +270,47 @@ public class Player : MonoBehaviour
         if (Undieing) return;
         if (damage < 0) damage = 0;
         CameraShake.singleton.Shake(0.2f, 6f);
-        Instantiate(damageParticles, transform.position, Quaternion.identity);
-        Health -= damage;
-        StartCoroutine(TurnOnUndieing(3));
+        TurnOnUndieing(2);
+        
+        if (isSheald) {
+            Instantiate(shealdDamageParticles, transform.position, Quaternion.identity);
+            TurnOffSheald();
+        } else {
+            Instantiate(damageParticles, transform.position, Quaternion.identity);
+            Health -= damage;
 
-        if (Health <= 0) {
-            GameManager.Instance.Lose();
+            if (Health <= 0) {
+                GameManager.Instance.Lose();
+            }
         }
+    }
+
+    public void TurnOffSheald() {
+        shealdFill.gameObject.SetActive(false);
+        isSheald = false;
+        VisualizeHealth();
+    }
+    public void TurnOnSheald(float Duration) {
+        if (shealdProcess != null) StopCoroutine(shealdProcess);
+
+        shealdProcess = StartCoroutine(ITurnOnShead(Duration));
+    }
+    
+    private IEnumerator ITurnOnShead(float Duration) {
+        isSheald = true;
+        VisualizeHealth();
+        shealdFill.gameObject.SetActive(true);
+        float timer = Duration;
+
+        while (timer > 0) {
+            shealdFill.fillAmount = timer / Duration;
+            Debug.Log(Duration / timer);
+
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+        
+        TurnOffSheald();
     }
     public void Regenerate(int health) {
         if (health < 0) health = 0;
@@ -258,10 +338,33 @@ public class Player : MonoBehaviour
                 hearts.Remove(item);
             }
         }
+
+        foreach (var item in hearts)
+        {
+            if (isSheald)
+            item.GetComponent<Image>().sprite = sheadHearts;
+            else
+            item.GetComponent<Image>().sprite = heart.GetComponent<Image>().sprite;
+        }
     }
 
     void OnRestartGame() {
+        actTimer = 0;
         Health = startHealth;
         StopFly();
+    }
+
+    void Load() {
+        startHealth = YandexGame.savesData.StartHealth;
+    }
+
+    void OnEnable()
+    {
+        YandexGame.GetDataEvent += Load;
+    }
+
+    void OnDisable()
+    {
+        YandexGame.GetDataEvent -= Load;
     }
 }

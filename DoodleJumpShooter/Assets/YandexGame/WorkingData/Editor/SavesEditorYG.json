@@ -1,5 +1,5 @@
 {
-    "idSave": 308515,
+    "idSave": 860,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -12,15 +12,9 @@
     ],
     "UnlockedItems": [
         "Pistol",
-        "Minigun",
-        "Destroyer",
-        "Sight",
-        "GranadeShooter",
-        "ShotGun",
-        "OnyxBlaster",
-        "FlameGun",
-        "SnowGun"
+        "Sheald"
     ],
-    "HighScores": 20328,
-    "Money": 222235
+    "HighScores": 5859,
+    "StartHealth": 3,
+    "Money": 1740
 }

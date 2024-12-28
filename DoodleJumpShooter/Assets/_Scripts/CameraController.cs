@@ -1,38 +1,59 @@
 using Cinemachine;
 using UnityEngine;
-
 public class CameraController : MonoBehaviour
 {
     public Player follow;
     public static Transform secondFollow;
-    bool previousSecondFollow;
-    public CinemachineVirtualCamera mainCamera;
-    [SerializeField] float size = 1.5f;
     [SerializeField] float motionSpeed = 5;
     float motionProgress;
-    void Start()
-    {
-        mainCamera = GetComponent<CinemachineVirtualCamera>();
+    void Start() {
+        GameManager.onRestartGame.AddListener(onRestart);
     }
 
     void Update()
     {
-        Vector3 followPos = transform.position;
-        if (secondFollow != null) {
-            if (motionProgress < 1) motionProgress += motionSpeed * Time.deltaTime;
-            motionProgress = Mathf.Clamp01(motionProgress);
-            followPos = new Vector3((follow.transform.position.x + secondFollow.position.x) / 2, (follow.transform.position.y + secondFollow.position.y) / 2, -10);
-            
-            transform.position = Vector3.Lerp(new Vector3(0, follow.transform.position.y, -10), followPos, motionProgress);
-            
-            previousSecondFollow = true;
-        } 
-        else if (follow.transform.position.y > transform.position.y) {
-            if (motionProgress > 0) motionProgress -= motionSpeed * Time.deltaTime;
-            motionProgress = Mathf.Clamp01(motionProgress);
-            transform.position = Vector3.Lerp(new Vector3(0, follow.transform.position.y, -10), followPos, motionProgress);
+        // Рассчитываем целевую позицию камеры
+        Vector3 followPos = CalculateTargetPosition();
 
-            previousSecondFollow = false;
+        // Обновляем прогресс движения
+        if (secondFollow != null && !IsNearTarget(followPos))
+        {
+            motionProgress += motionSpeed * Time.deltaTime;
+            motionProgress = Mathf.Clamp01(motionProgress);
+            transform.position = Vector3.Lerp(transform.position, followPos, motionProgress);
         }
+        else if (!IsNearTarget(followPos))
+        {
+            motionProgress -= motionSpeed * Time.deltaTime;
+            motionProgress = Mathf.Clamp01(motionProgress);
+            transform.position = Vector3.Lerp(followPos, transform.position, motionProgress);
+        }
+    }
+
+    private Vector3 CalculateTargetPosition()
+    {
+        if (secondFollow != null)
+        {
+            return new Vector3(
+                (follow.transform.position.x + secondFollow.position.x) / 2,
+                (follow.transform.position.y + secondFollow.position.y) / 2,
+                -10
+            );
+        }
+        else
+        {
+            if (follow.transform.position.y > transform.position.y) return new Vector3(0, follow.transform.position.y, -10);
+            else return new Vector3(0, transform.position.y, -10);
+        }
+    }
+
+    private bool IsNearTarget(Vector3 target)
+    {
+        return Vector3.Distance(transform.position, target) <= 0.05f;
+    }
+
+    void onRestart() {
+        motionProgress = 0;
+        transform.position = new Vector3(0, follow.transform.position.y, -10);
     }
 }
