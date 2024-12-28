@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
     [SerializeField] AudioClip dashSound;
     [SerializeField] AudioClip springSound;
     [SerializeField] Sprite sheadHearts;
+    [SerializeField] SpriteRenderer actReloadBar;
+    [SerializeField] Vector2 actReloadBarOffset = new Vector2(0, 1);
 
     [SerializeField, Space(10)] HorizontalLayoutGroup group;
     [HideInInspector] public Rigidbody2D rb;
@@ -49,6 +51,7 @@ public class Player : MonoBehaviour
 
     float movement;
     float actTimer;
+    float maxActTimer;
 
     public bool Undieing {get; private set;}  
     bool facingRight = true;  
@@ -94,6 +97,8 @@ public class Player : MonoBehaviour
     {
         Movement();
         actTimer -= Time.deltaTime;
+        actReloadBar.transform.position = new Vector2(transform.position.x + actReloadBarOffset.x, transform.position.y + actReloadBarOffset.y);
+        if (actTimer != 0) actReloadBar.size = new Vector2(Mathf.Clamp01(actTimer / maxActTimer), 1);
         if (Input.GetKeyUp(KeyCode.Space)) {
             ActButton();
         }
@@ -109,11 +114,13 @@ public class Player : MonoBehaviour
                     anim.SetTrigger("Dash");
                     StartCoroutine(Dashing());
                     actTimer = DashIntervall;
+                    maxActTimer = DashIntervall;
                 }
             break;
             case ActType.Sheald:
                 TurnOnSheald(10);
                 actTimer = ShealdIntervall;
+                maxActTimer = ShealdIntervall;
             break;
         }
     }
