@@ -111,5 +111,27 @@ public class Product : MonoBehaviour
     public void OnEnable()
     {
         UpdatePriceText();
+        if (textTip == null) textTip = GetComponentInChildren<Button>().GetComponentInChildren<TextMeshProUGUI>();
+        if (isUnlocked) 
+        {
+            if (!isSelected) 
+            {
+                if (YandexGame.EnvironmentData.language == "ru") textTip.text = "Выбрать";
+                else if (YandexGame.EnvironmentData.language == "en") textTip.text = "Select";
+                else if (YandexGame.EnvironmentData.language == "tr") textTip.text = "Seçmek";
+            }
+            else 
+            {
+                if (YandexGame.EnvironmentData.language == "ru") textTip.text = "Выбран";
+                else if (YandexGame.EnvironmentData.language == "en") textTip.text = "Selected";
+                else if (YandexGame.EnvironmentData.language == "tr") textTip.text = "Seçme";
+            }
+        }
+        else 
+        {
+            if (YandexGame.EnvironmentData.language == "ru") textTip.text = "Купить";
+            else if (YandexGame.EnvironmentData.language == "en") textTip.text = "Buy";
+            else if (YandexGame.EnvironmentData.language == "tr") textTip.text = "Almak";
+        }
     }
 }

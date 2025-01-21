@@ -13,7 +13,7 @@ public class ActButtonPerk : Product
             case "Dash": 
                 GameManager.Instance.player.actType = Player.ActType.Dash;
             break;
-        } 
+        }
     }
     public override void BuyAction(string namem)
     {

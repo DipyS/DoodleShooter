@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
 
     [SerializeField, Space(10)] AudioClip jumpSound;
     [SerializeField] AudioClip rocketSound;
+    [SerializeField] AudioClip damageSound;
     [SerializeField] AudioClip capSound;
     [SerializeField] AudioClip dashSound;
     [SerializeField] AudioClip springSound;
@@ -278,6 +279,7 @@ public class Player : MonoBehaviour
         if (damage < 0) damage = 0;
         CameraShake.singleton.Shake(0.2f, 6f);
         TurnOnUndieing(2);
+        GameManager.Instance.PlaySound(damageSound);
         
         if (isSheald) {
             Instantiate(shealdDamageParticles, transform.position, Quaternion.identity);

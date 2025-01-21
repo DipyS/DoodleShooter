@@ -1,8 +1,4 @@
-﻿
-using System.Collections.Generic;
-using Unity.VisualScripting;
-
-namespace YG
+﻿namespace YG
 {
     [System.Serializable]
     public class SavesYG

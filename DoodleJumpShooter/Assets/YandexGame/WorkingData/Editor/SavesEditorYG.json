@@ -1,5 +1,5 @@
 {
-    "idSave": 2772,
+    "idSave": 1580,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -13,9 +13,11 @@
     "UnlockedItems": [
         "Pistol",
         "Sheald",
-        "Dash"
+        "Dash",
+        "Minigun",
+        "ShotGun"
     ],
-    "HighScores": 7518,
+    "HighScores": 10185,
     "StartHealth": 3,
-    "Money": 10530
+    "Money": 3525
 }

@@ -3,13 +3,15 @@ using UnityEngine.UI;
 
 public class Enemy : Entity
 {
-    [SerializeField] EnemiesHealthBar spawnHealthBar;
+    EnemiesHealthBar spawnHealthBar;
     [SerializeField] protected bool contanctDamage = true;
     [SerializeField] protected int damage = 1;
     protected Slider healthBar;
 
-    void Start()
+    public new void Start()
     {
+        base.Start();
+        spawnHealthBar = Resources.Load<EnemiesHealthBar>("Prefabs/HealthBar");
         if (spawnHealthBar != null) Instantiate(spawnHealthBar, transform.position, Quaternion.identity).enemy = this;
     }
 

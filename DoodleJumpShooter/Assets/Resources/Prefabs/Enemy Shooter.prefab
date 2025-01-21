@@ -96,8 +96,8 @@ GameObject:
   - component: {fileID: 6658659442386088739}
   - component: {fileID: 6448740166440728114}
   - component: {fileID: -5661221231696808967}
-  - component: {fileID: 8992885379337858776}
   - component: {fileID: 7770892166294530578}
+  - component: {fileID: 8992885379337858776}
   m_Layer: 0
   m_Name: Enemy Shooter
   m_TagString: Untagged
@@ -118,8 +118,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4354250558095494434}
   - {fileID: 6013089169413918114}
+  - {fileID: 4354250558095494434}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &6658659442386088739
@@ -197,23 +197,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &8992885379337858776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8477839839132186209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b17c1e52cd965c146a44b8bb58fef105, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 3807610566497216161, guid: 33645040014452747bd7798da756815f, type: 3}
-  target: {fileID: 0}
-  shotParticles: {fileID: 591590650703885471, guid: 1a9701eda57aafc4983aa596541fd5de, type: 3}
-  shotSound: {fileID: 0}
-  shootIntervall: 3
 --- !u!114 &7770892166294530578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +226,23 @@ MonoBehaviour:
   spawnHealthBar: {fileID: 722364644407225600, guid: f066ae32ad05be646af1206bb042939a, type: 3}
   contanctDamage: 1
   damage: 1
+--- !u!114 &8992885379337858776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8477839839132186209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b17c1e52cd965c146a44b8bb58fef105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 3807610566497216161, guid: 33645040014452747bd7798da756815f, type: 3}
+  target: {fileID: 0}
+  shotParticles: {fileID: 591590650703885471, guid: 1a9701eda57aafc4983aa596541fd5de, type: 3}
+  shotSound: {fileID: 0}
+  shootIntervall: 3
 --- !u!1001 &6602418703864761292
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -295,7 +295,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3470270600411898624, guid: 73e4d5a4cf3c1624998e149a0c2d96b0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

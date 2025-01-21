@@ -4997,5 +4997,6 @@ MonoBehaviour:
   speed: 27
   damage: 0
   hitParticles: {fileID: 0}
-  lifeTime: 0.4
+  lifeTime: 0.3
+  hitSound: {fileID: 0}
   explotion: {fileID: 1042149451600479351, guid: 2c784cd40f988a24ebf72350db2bbb23, type: 3}

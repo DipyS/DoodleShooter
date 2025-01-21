@@ -26,21 +26,31 @@ public class GameManager : MonoBehaviour
         get { return new Vector2(transform.position.x + widthSpawn, transform.position.y + height); }
     }
     [Header("Спавн Объектов")]
-    [SerializeField] float height;
-    [SerializeField] float widthSpawn;
-    [SerializeField] float platformStep = 2.5f;
+    [SerializeField] public float height;
+    [SerializeField] public float widthSpawn;
+    [SerializeField] public float platformStep = 2.5f;
 
     [SerializeField, Header("Состояние игры")] GameObject LosePanel;
     [SerializeField] TextMeshProUGUI LosePanelScoresText;
     [SerializeField] TextMeshProUGUI scoresTMP;
+    [SerializeField] TextMeshProUGUI highScoresTMP;
     [SerializeField] AudioSource sound;
+    [SerializeField] AudioClip loseSound;
+    [SerializeField] AudioClip updateScoreSound;
+    [SerializeField] AudioClip newRecordSound;
+    [SerializeField] GameObject highScoreLine;
+    [SerializeField] ParticleSystem newHighScoreParticles;
 
     [SerializeField] int scoresPerY = 21;
     public int scores {get; private set;}
+    public int highScoresAll;
     public int highScoresGame {get; private set;}
     public Player player {get; private set; }
-    [HideInInspector] public int highScoresAll;
     bool canLose = true;
+    Animator scoresAnim;
+    Animator highScoresAnim;
+    GameObject currentLine;
+    GameObject highScoreCongrutulationText;
     
     void Awake()
     {
@@ -52,6 +62,9 @@ public class GameManager : MonoBehaviour
     {
         spawnHeight = transform.position.y + platformStep;
         player = player ?? GameObject.Find("Player").GetComponent<Player>();
+        highScoreCongrutulationText = Resources.Load<GameObject>("Prefabs/floatingCrit");
+        scoresAnim = scoresTMP.GetComponent<Animator>();
+        highScoresAnim = highScoresTMP.GetComponent<Animator>();
         LosePanel.SetActive(false);
     }
 
@@ -73,6 +86,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void RestartGame() {
+        if (currentLine != null) Destroy(currentLine);
         onRestartGame.Invoke();
         gameIsLoosedOrStoped = false;
         virtualCamera.transform.position = new Vector3(0,0,-10);
@@ -84,6 +98,7 @@ public class GameManager : MonoBehaviour
         highScoresGame = 0;
         canLose = false;
         Invoke(nameof(CanLose),0.15f);
+        currentLine = Instantiate(highScoreLine, new Vector2(0, highScoresAll / scoresPerY), Quaternion.identity);
         LosePanel.SetActive(false);
         YandexGame.FullscreenShow();
     }
@@ -92,8 +107,38 @@ public class GameManager : MonoBehaviour
     }
     void UpdateScores() {
         scores = (int)player.transform.position.y * scoresPerY;
-        if (scores > highScoresGame) highScoresGame = scores;
-        scoresTMP.text = highScoresGame.ToString();
+        if (scores > highScoresGame) 
+        {
+            highScoresGame = scores;
+            scoresTMP.text = highScoresGame.ToString();
+            scoresAnim.SetTrigger("Blink" + Random.Range(1, 4));
+            PlaySound(updateScoreSound);
+        }
+        if (highScoresGame > highScoresAll) 
+        {
+            highScoresAll = highScoresGame;
+            highScoresTMP.text = highScoresAll.ToString();
+            highScoresAnim.SetTrigger("Blink" + Random.Range(1, 4));
+        }
+        if (currentLine != null) 
+        {
+            if (player.transform.position.y > currentLine.transform.position.y) 
+            {
+                if (newHighScoreParticles != null) Instantiate(newHighScoreParticles, currentLine.transform.position, Quaternion.identity);
+                TextMeshPro newCongrutulationText = Instantiate(highScoreCongrutulationText, currentLine.transform.position, Quaternion.identity).GetComponentInChildren<TextMeshPro>();
+                PlaySound(newRecordSound, 2.5f);
+                PlaySound(newRecordSound, 2.5f);
+
+                switch (YandexGame.EnvironmentData.language) 
+                {
+                    case "ru": newCongrutulationText.text = "НОВЫЙ РЕКОРД, ПОЗДРАВЛЯЮ!!!!";  break;
+                    case "en": newCongrutulationText.text = "A NEW RECORD, CONGRATULATIONS!!!!";  break;
+                    case "tr": newCongrutulationText.text = "YENİ REKOR, TEBRİKLER!!!!";  break;
+                }
+                Destroy(currentLine);
+            }
+        }
+        highScoresTMP.text = highScoresAll.ToString();
     }  
 
     public void PlaySound(AudioClip clip, float duration = 1) {
@@ -108,11 +153,15 @@ public class GameManager : MonoBehaviour
         onLoseGame.Invoke();
         gameIsLoosedOrStoped = true;
         LosePanel.SetActive(true);
-        LosePanelScoresText.text = "Scores : " + highScoresGame.ToString();
+
+        if (YandexGame.EnvironmentData.language == "ru") LosePanelScoresText.text = "Очки : " + highScoresGame.ToString();
+        else if (YandexGame.EnvironmentData.language == "en") LosePanelScoresText.text = "Scores : " + highScoresGame.ToString();
+        else if (YandexGame.EnvironmentData.language == "tr") LosePanelScoresText.text = "Puanlar : " + highScoresGame.ToString();
         if (highScoresGame > highScoresAll) {
             highScoresAll = highScoresGame;
             YandexGame.NewLeaderboardScores("HighScores", highScoresAll);
         }
+        PlaySound(loseSound, 2);
         player.GetComponent<BoxCollider2D>().enabled = false;
     }
     void DestroyObjectsOutScreen() {
@@ -140,5 +189,22 @@ public class GameManager : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(new Vector2(transform.position.x, transform.position.y - height),0.3f);
         Gizmos.DrawLine(new Vector2(transform.position.x + widthSpawn, transform.position.y - height),new Vector2(transform.position.x - widthSpawn, transform.position.y - height));
+    }
+
+    public void Load() {
+        highScoresAll = YandexGame.savesData.HighScores;
+        highScoresAll = highScoresGame;
+        highScoresTMP.text = highScoresAll.ToString();
+    }
+    public void Save() {
+        YandexGame.savesData.HighScores = highScoresAll;
+    }
+    void OnEnable()
+    {
+        YandexGame.GetDataEvent += Load;
+    }
+    void OnDisable()
+    {
+        YandexGame.GetDataEvent -= Load;
     }
 }

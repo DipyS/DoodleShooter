@@ -26,7 +26,7 @@ public class Entity : MonoBehaviour
     protected GameObject floatingCrit;
     [SerializeField] AudioClip deathSound;
 
-    void Start()
+    public void Start()
     {
         floatingText = Resources.Load<GameObject>("Prefabs/floatingText");
         floatingCrit = Resources.Load<GameObject>("Prefabs/floatingCrit");
@@ -36,7 +36,7 @@ public class Entity : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>(); 
     }
-    void Awake()
+    public void Awake()
     {
         floatingText = Resources.Load<GameObject>("Prefabs/floatingText");
         defauldMaterial = Resources.Load<Material>("Materials/DipyDefauld");
