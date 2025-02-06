@@ -52,7 +52,7 @@ public class Weapon : MonoBehaviour
             //На телефоне
             if (Application.isMobilePlatform) {
                 
-                if (ShotJoystick.Direction.x >= 0.75 || ShotJoystick.Direction.x <= -0.75 || ShotJoystick.Direction.y >= 0.75 || ShotJoystick.Direction.y <= -0.75) {
+                if (ShotJoystick.Direction.x >= 0.5 || ShotJoystick.Direction.x <= -0.5 || ShotJoystick.Direction.y >= 0.5 || ShotJoystick.Direction.y <= -0.5) {
                     VirtualShoot(mousePos);
                 }
             } 

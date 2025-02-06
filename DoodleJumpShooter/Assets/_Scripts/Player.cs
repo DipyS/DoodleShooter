@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        actType = ActType.Dash;
+        actType = ActType.None;
         Health = startHealth;
         shealdFill.gameObject.SetActive(false);
         virtualCamera.GetComponent<CameraController>().follow = this;

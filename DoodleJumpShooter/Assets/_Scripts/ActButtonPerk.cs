@@ -1,7 +1,10 @@
 using UnityEngine.Events;
-
+using UnityEngine;
+using UnityEngine.UI;
 public class ActButtonPerk : Product
 {
+    [SerializeField] protected Sprite dashButtonSprite;
+    [SerializeField] protected Image dashButtonImage;
     protected static UnityEvent<string> onSelect = new UnityEvent<string>();
     public override void BuyAction()
     {
@@ -26,5 +29,6 @@ public class ActButtonPerk : Product
                 GameManager.Instance.player.actType = Player.ActType.Dash;
             break;
         } 
+        dashButtonImage.sprite = dashButtonSprite;
     }
 }

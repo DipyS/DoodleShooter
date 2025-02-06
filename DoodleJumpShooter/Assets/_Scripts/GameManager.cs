@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour
         else if (YandexGame.EnvironmentData.language == "tr") LosePanelScoresText.text = "Puanlar : " + highScoresGame.ToString();
         if (highScoresGame > highScoresAll) {
             highScoresAll = highScoresGame;
-            YandexGame.NewLeaderboardScores("HighScores", highScoresAll);
+            YandexGame.NewLeaderboardScores("HighScoresUltraSecondVERSION", highScoresAll);
         }
         PlaySound(loseSound, 2);
         player.GetComponent<BoxCollider2D>().enabled = false;

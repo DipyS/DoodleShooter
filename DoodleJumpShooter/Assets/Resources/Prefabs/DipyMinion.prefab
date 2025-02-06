@@ -123,10 +123,9 @@ MonoBehaviour:
   armor: 0
   droppingMoneyCount: 3
   deathSound: {fileID: 0}
-  spawnHealthBar: {fileID: 0}
   contanctDamage: 1
   damage: 1
-  booster: {fileID: 3783065326366170786, guid: 8176f6c997e216a43be98dbba8674aff, type: 3}
+  booster: {fileID: 0}
   dashForce: 2
   timeToAttack: 2
 --- !u!114 &4734043328897343087

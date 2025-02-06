@@ -1,5 +1,5 @@
 {
-    "idSave": 1580,
+    "idSave": 7073,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -15,9 +15,13 @@
         "Sheald",
         "Dash",
         "Minigun",
-        "ShotGun"
+        "ShotGun",
+        "Sight",
+        "Destroyer",
+        "Blaster",
+        "GranadeShooter"
     ],
-    "HighScores": 10185,
-    "StartHealth": 3,
-    "Money": 3525
+    "HighScores": 10500,
+    "StartHealth": 5,
+    "Money": 12070
 }
